@@ -1,0 +1,762 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TradeMarketModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cart_order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="department_id" Type="int" Nullable="false" />
+          <Property Name="serial" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="temp_order_id" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="seller_id" Type="int" Nullable="false" />
+          <Property Name="seller_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="buyer_id" Type="int" Nullable="false" />
+          <Property Name="buyer_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="total" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="tax_rate" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="tax_add" Type="int" Nullable="false" />
+          <Property Name="tax_total" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="memo" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="update_date" Type="datetime" Nullable="false" />
+          <Property Name="order_state_id" Type="int" Nullable="false" />
+          <Property Name="delivery_date" Type="datetime" Nullable="false" />
+          <Property Name="shipment_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="recipient" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="shipment_address" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="shipment_mobile" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="shipment_tel" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="shipment_time" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="shipment_memo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="payment_type1" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="payment_amount1" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="payment_type2" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="payment_amount2" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="payment_type3" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="payment_amount3" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="payment_type4" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="payment_amount4" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="invoice_type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="invoice_title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="invoice_no" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cart_order_detail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="order_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="state" Type="int" Nullable="false" />
+          <Property Name="product_customize_id" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="product_name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="quantity" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="price" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="unit_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="total" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="tax_rate" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="tax_add" Type="int" Nullable="false" />
+          <Property Name="tax_total" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="memo" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="update_date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="department_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="tel" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fax" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="error_log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="update_date" Type="datetime" Nullable="false" />
+          <Property Name="controller" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="action" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="contents" Type="nvarchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="member">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role" Type="int" Nullable="false" />
+          <Property Name="type_id" Type="int" Nullable="false" />
+          <Property Name="member_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="account" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="mobile" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tel" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fax" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="state" Type="int" Nullable="false" />
+          <Property Name="contact_address_city_o" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact_address_area_o" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact_address_street_o" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact_address_o" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="contact_address_zipno_o" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="update_date" Type="datetime" Nullable="false" />
+          <Property Name="update_user_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="member_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="member_type_name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="department_id" Type="int" Nullable="false" />
+          <Property Name="product_type_id" Type="int" Nullable="false" />
+          <Property Name="product_customize_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="product_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="short_product_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="english_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="brand" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="specification1" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="specification2" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="specification3" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="length" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="width" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="height" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="barcode1" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="reference_price1" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="reference_price2" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="reference_price3" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="unit_type" Type="int" Nullable="false" />
+          <Property Name="display_unit" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="image_url" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="tax_type" Type="int" Nullable="false" />
+          <Property Name="sales_type" Type="int" Nullable="false" />
+          <Property Name="update_date" Type="datetime" Nullable="false" />
+          <Property Name="update_member_id" Type="int" Nullable="false" />
+          <Property Name="expiration_date" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="expiration_days" Type="int" Nullable="false" />
+          <Property Name="expiration_alert_percent" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="memo" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product_on_sales">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="product_customize_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="update_date" Type="datetime" Nullable="false" />
+          <Property Name="update_user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="product_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_type_name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product_unit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="unit_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="supply">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="department_id" Type="int" Nullable="false" />
+          <Property Name="supply_type_id" Type="int" Nullable="false" />
+          <Property Name="supply_customize_id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="supply_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="nickname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="unified_business_no" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="owner" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="owner_mobile" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact_mobile" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="tel_o" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="tel_h" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fax" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="tel_other" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact_address_city_o" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact_address_area_o" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact_address_street_o" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact_address_o" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="contact_address_zipno_o" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact_address_city_h" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact_address_area_h" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact_address_street_h" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact_address_h" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="contact_address_zipno_h" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="bank_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="receiver" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="account" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="website" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="memo" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="update_date" Type="datetime" Nullable="false" />
+          <Property Name="currency_id" Type="int" Nullable="false" />
+          <Property Name="update_user_id" Type="int" />
+          <Property Name="tax_rate" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="tax_add" Type="int" Nullable="false" />
+          <Property Name="payment_term_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="temp_cart">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="temp_order_id" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="state" Type="int" Nullable="false" />
+          <Property Name="product_customize_id" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="product_name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="quantity" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="price" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="unit_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="total" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="tax_rate" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="tax_add" Type="int" Nullable="false" />
+          <Property Name="tax_total" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="memo" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="update_date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="TradeMarketModelStoreContainer">
+          <EntitySet Name="cart_order" EntityType="Self.cart_order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cart_order_detail" EntityType="Self.cart_order_detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="department" EntityType="Self.department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="error_log" EntityType="Self.error_log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="member" EntityType="Self.member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="member_type" EntityType="Self.member_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product_on_sales" EntityType="Self.product_on_sales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product_type" EntityType="Self.product_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product_unit" EntityType="Self.product_unit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="supply" EntityType="Self.supply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="temp_cart" EntityType="Self.temp_cart" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TradeMarketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cart_order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="department_id" Type="Int32" Nullable="false" />
+          <Property Name="serial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="temp_order_id" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="seller_id" Type="Int32" Nullable="false" />
+          <Property Name="seller_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="buyer_id" Type="Int32" Nullable="false" />
+          <Property Name="buyer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="total" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="tax_rate" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="tax_add" Type="Int32" Nullable="false" />
+          <Property Name="tax_total" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="memo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="update_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="order_state_id" Type="Int32" Nullable="false" />
+          <Property Name="delivery_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="shipment_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="recipient" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="shipment_address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="shipment_mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="shipment_tel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="shipment_time" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="shipment_memo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="payment_type1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="payment_amount1" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="payment_type2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="payment_amount2" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="payment_type3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="payment_amount3" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="payment_type4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="payment_amount4" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="invoice_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="invoice_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="invoice_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cart_order_detail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="order_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="state" Type="Int32" Nullable="false" />
+          <Property Name="product_customize_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="product_name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="quantity" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="unit_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="total" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="tax_rate" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="tax_add" Type="Int32" Nullable="false" />
+          <Property Name="tax_total" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="memo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="update_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="department_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="member">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role" Type="Int32" Nullable="false" />
+          <Property Name="type_id" Type="Int32" Nullable="false" />
+          <Property Name="member_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="account" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="state" Type="Int32" Nullable="false" />
+          <Property Name="contact_address_city_o" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="contact_address_area_o" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="contact_address_street_o" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="contact_address_o" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="contact_address_zipno_o" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="update_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="update_user_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="member_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="member_type_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product_on_sales">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="product_customize_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="update_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="update_user_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="product_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_type_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="TradeMarketEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cart_order" EntityType="Self.cart_order" />
+          <EntitySet Name="cart_order_detail" EntityType="Self.cart_order_detail" />
+          <EntitySet Name="department" EntityType="Self.department" />
+          <EntitySet Name="member" EntityType="Self.member" />
+          <EntitySet Name="member_type" EntityType="Self.member_type" />
+          <EntitySet Name="product_on_sales" EntityType="Self.product_on_sales" />
+          <EntitySet Name="product_type" EntityType="Self.product_type" />
+          <EntitySet Name="supply" EntityType="TradeMarketModel.supply" />
+          <EntitySet Name="error_log" EntityType="TradeMarketModel.error_log" />
+          <EntitySet Name="product_unit" EntityType="TradeMarketModel.product_unit" />
+          <EntitySet Name="temp_cart" EntityType="TradeMarketModel.temp_cart" />
+          <EntitySet Name="product" EntityType="TradeMarketModel.product" />
+        </EntityContainer>
+        <EntityType Name="supply">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="department_id" Type="Int32" Nullable="false" />
+          <Property Name="supply_type_id" Type="Int32" Nullable="false" />
+          <Property Name="supply_customize_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="supply_name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="nickname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="unified_business_no" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="owner" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="owner_mobile" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="contact" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="contact_mobile" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tel_o" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tel_h" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fax" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tel_other" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="contact_address_city_o" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="contact_address_area_o" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="contact_address_street_o" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="contact_address_o" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="contact_address_zipno_o" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="contact_address_city_h" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="contact_address_area_h" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="contact_address_street_h" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="contact_address_h" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="contact_address_zipno_h" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="bank_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="receiver" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="account" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="website" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="memo" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="update_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="currency_id" Type="Int32" Nullable="false" />
+          <Property Name="update_user_id" Type="Int32" />
+          <Property Name="tax_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="tax_add" Type="Int32" Nullable="false" />
+          <Property Name="payment_term_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="error_log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="update_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="controller" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="action" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="contents" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="product_unit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="unit_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="temp_cart">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="temp_order_id" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="state" Type="Int32" Nullable="false" />
+          <Property Name="product_customize_id" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="product_name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="quantity" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="price" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="unit_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="total" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="tax_rate" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="tax_add" Type="Int32" Nullable="false" />
+          <Property Name="tax_total" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="memo" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="update_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="department_id" Type="Int32" Nullable="false" />
+          <Property Name="product_type_id" Type="Int32" Nullable="false" />
+          <Property Name="product_customize_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="product_name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="short_product_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="english_name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="brand" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="specification1" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="specification2" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="specification3" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="length" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="width" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="height" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="barcode1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="reference_price1" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="reference_price2" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="reference_price3" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="unit_type" Type="Int32" Nullable="false" />
+          <Property Name="display_unit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="image_url" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tax_type" Type="Int32" Nullable="false" />
+          <Property Name="sales_type" Type="Int32" Nullable="false" />
+          <Property Name="update_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="update_member_id" Type="Int32" Nullable="false" />
+          <Property Name="expiration_date" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="expiration_days" Type="Int32" Nullable="false" />
+          <Property Name="expiration_alert_percent" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="memo" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TradeMarketModelStoreContainer" CdmEntityContainer="TradeMarketEntities">
+          <EntitySetMapping Name="cart_order">
+            <EntityTypeMapping TypeName="TradeMarketModel.cart_order">
+              <MappingFragment StoreEntitySet="cart_order">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="serial" ColumnName="serial" />
+                <ScalarProperty Name="temp_order_id" ColumnName="temp_order_id" />
+                <ScalarProperty Name="seller_id" ColumnName="seller_id" />
+                <ScalarProperty Name="seller_name" ColumnName="seller_name" />
+                <ScalarProperty Name="buyer_id" ColumnName="buyer_id" />
+                <ScalarProperty Name="buyer_name" ColumnName="buyer_name" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="tax_rate" ColumnName="tax_rate" />
+                <ScalarProperty Name="tax_add" ColumnName="tax_add" />
+                <ScalarProperty Name="tax_total" ColumnName="tax_total" />
+                <ScalarProperty Name="memo" ColumnName="memo" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="order_state_id" ColumnName="order_state_id" />
+                <ScalarProperty Name="delivery_date" ColumnName="delivery_date" />
+                <ScalarProperty Name="shipment_type" ColumnName="shipment_type" />
+                <ScalarProperty Name="recipient" ColumnName="recipient" />
+                <ScalarProperty Name="shipment_address" ColumnName="shipment_address" />
+                <ScalarProperty Name="shipment_mobile" ColumnName="shipment_mobile" />
+                <ScalarProperty Name="shipment_tel" ColumnName="shipment_tel" />
+                <ScalarProperty Name="shipment_time" ColumnName="shipment_time" />
+                <ScalarProperty Name="shipment_memo" ColumnName="shipment_memo" />
+                <ScalarProperty Name="payment_type1" ColumnName="payment_type1" />
+                <ScalarProperty Name="payment_amount1" ColumnName="payment_amount1" />
+                <ScalarProperty Name="payment_type2" ColumnName="payment_type2" />
+                <ScalarProperty Name="payment_amount2" ColumnName="payment_amount2" />
+                <ScalarProperty Name="payment_type3" ColumnName="payment_type3" />
+                <ScalarProperty Name="payment_amount3" ColumnName="payment_amount3" />
+                <ScalarProperty Name="payment_type4" ColumnName="payment_type4" />
+                <ScalarProperty Name="payment_amount4" ColumnName="payment_amount4" />
+                <ScalarProperty Name="invoice_type" ColumnName="invoice_type" />
+                <ScalarProperty Name="invoice_title" ColumnName="invoice_title" />
+                <ScalarProperty Name="invoice_no" ColumnName="invoice_no" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cart_order_detail">
+            <EntityTypeMapping TypeName="TradeMarketModel.cart_order_detail">
+              <MappingFragment StoreEntitySet="cart_order_detail">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="product_customize_id" ColumnName="product_customize_id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="unit_name" ColumnName="unit_name" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="tax_rate" ColumnName="tax_rate" />
+                <ScalarProperty Name="tax_add" ColumnName="tax_add" />
+                <ScalarProperty Name="tax_total" ColumnName="tax_total" />
+                <ScalarProperty Name="memo" ColumnName="memo" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="department">
+            <EntityTypeMapping TypeName="TradeMarketModel.department">
+              <MappingFragment StoreEntitySet="department">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="department_name" ColumnName="department_name" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="member">
+            <EntityTypeMapping TypeName="TradeMarketModel.member">
+              <MappingFragment StoreEntitySet="member">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="member_name" ColumnName="member_name" />
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="contact_address_city_o" ColumnName="contact_address_city_o" />
+                <ScalarProperty Name="contact_address_area_o" ColumnName="contact_address_area_o" />
+                <ScalarProperty Name="contact_address_street_o" ColumnName="contact_address_street_o" />
+                <ScalarProperty Name="contact_address_o" ColumnName="contact_address_o" />
+                <ScalarProperty Name="contact_address_zipno_o" ColumnName="contact_address_zipno_o" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="update_user_name" ColumnName="update_user_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="member_type">
+            <EntityTypeMapping TypeName="TradeMarketModel.member_type">
+              <MappingFragment StoreEntitySet="member_type">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="member_type_name" ColumnName="member_type_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product_on_sales">
+            <EntityTypeMapping TypeName="TradeMarketModel.product_on_sales">
+              <MappingFragment StoreEntitySet="product_on_sales">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="product_customize_id" ColumnName="product_customize_id" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product_type">
+            <EntityTypeMapping TypeName="TradeMarketModel.product_type">
+              <MappingFragment StoreEntitySet="product_type">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="product_type_name" ColumnName="product_type_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="supply">
+            <EntityTypeMapping TypeName="TradeMarketModel.supply">
+              <MappingFragment StoreEntitySet="supply">
+                <ScalarProperty Name="payment_term_id" ColumnName="payment_term_id" />
+                <ScalarProperty Name="tax_add" ColumnName="tax_add" />
+                <ScalarProperty Name="tax_rate" ColumnName="tax_rate" />
+                <ScalarProperty Name="update_user_id" ColumnName="update_user_id" />
+                <ScalarProperty Name="currency_id" ColumnName="currency_id" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="memo" ColumnName="memo" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="receiver" ColumnName="receiver" />
+                <ScalarProperty Name="bank_name" ColumnName="bank_name" />
+                <ScalarProperty Name="contact_address_zipno_h" ColumnName="contact_address_zipno_h" />
+                <ScalarProperty Name="contact_address_h" ColumnName="contact_address_h" />
+                <ScalarProperty Name="contact_address_street_h" ColumnName="contact_address_street_h" />
+                <ScalarProperty Name="contact_address_area_h" ColumnName="contact_address_area_h" />
+                <ScalarProperty Name="contact_address_city_h" ColumnName="contact_address_city_h" />
+                <ScalarProperty Name="contact_address_zipno_o" ColumnName="contact_address_zipno_o" />
+                <ScalarProperty Name="contact_address_o" ColumnName="contact_address_o" />
+                <ScalarProperty Name="contact_address_street_o" ColumnName="contact_address_street_o" />
+                <ScalarProperty Name="contact_address_area_o" ColumnName="contact_address_area_o" />
+                <ScalarProperty Name="contact_address_city_o" ColumnName="contact_address_city_o" />
+                <ScalarProperty Name="tel_other" ColumnName="tel_other" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="tel_h" ColumnName="tel_h" />
+                <ScalarProperty Name="tel_o" ColumnName="tel_o" />
+                <ScalarProperty Name="contact_mobile" ColumnName="contact_mobile" />
+                <ScalarProperty Name="contact" ColumnName="contact" />
+                <ScalarProperty Name="owner_mobile" ColumnName="owner_mobile" />
+                <ScalarProperty Name="owner" ColumnName="owner" />
+                <ScalarProperty Name="unified_business_no" ColumnName="unified_business_no" />
+                <ScalarProperty Name="nickname" ColumnName="nickname" />
+                <ScalarProperty Name="supply_name" ColumnName="supply_name" />
+                <ScalarProperty Name="supply_customize_id" ColumnName="supply_customize_id" />
+                <ScalarProperty Name="supply_type_id" ColumnName="supply_type_id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="error_log">
+            <EntityTypeMapping TypeName="TradeMarketModel.error_log">
+              <MappingFragment StoreEntitySet="error_log">
+                <ScalarProperty Name="contents" ColumnName="contents" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="controller" ColumnName="controller" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product_unit">
+            <EntityTypeMapping TypeName="TradeMarketModel.product_unit">
+              <MappingFragment StoreEntitySet="product_unit">
+                <ScalarProperty Name="unit_name" ColumnName="unit_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temp_cart">
+            <EntityTypeMapping TypeName="TradeMarketModel.temp_cart">
+              <MappingFragment StoreEntitySet="temp_cart">
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="memo" ColumnName="memo" />
+                <ScalarProperty Name="tax_total" ColumnName="tax_total" />
+                <ScalarProperty Name="tax_add" ColumnName="tax_add" />
+                <ScalarProperty Name="tax_rate" ColumnName="tax_rate" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="unit_name" ColumnName="unit_name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_customize_id" ColumnName="product_customize_id" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="temp_order_id" ColumnName="temp_order_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product">
+            <EntityTypeMapping TypeName="TradeMarketModel.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="memo" ColumnName="memo" />
+                <ScalarProperty Name="expiration_alert_percent" ColumnName="expiration_alert_percent" />
+                <ScalarProperty Name="expiration_days" ColumnName="expiration_days" />
+                <ScalarProperty Name="expiration_date" ColumnName="expiration_date" />
+                <ScalarProperty Name="update_member_id" ColumnName="update_member_id" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="sales_type" ColumnName="sales_type" />
+                <ScalarProperty Name="tax_type" ColumnName="tax_type" />
+                <ScalarProperty Name="image_url" ColumnName="image_url" />
+                <ScalarProperty Name="display_unit" ColumnName="display_unit" />
+                <ScalarProperty Name="unit_type" ColumnName="unit_type" />
+                <ScalarProperty Name="reference_price3" ColumnName="reference_price3" />
+                <ScalarProperty Name="reference_price2" ColumnName="reference_price2" />
+                <ScalarProperty Name="reference_price1" ColumnName="reference_price1" />
+                <ScalarProperty Name="barcode1" ColumnName="barcode1" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="width" ColumnName="width" />
+                <ScalarProperty Name="length" ColumnName="length" />
+                <ScalarProperty Name="specification3" ColumnName="specification3" />
+                <ScalarProperty Name="specification2" ColumnName="specification2" />
+                <ScalarProperty Name="specification1" ColumnName="specification1" />
+                <ScalarProperty Name="brand" ColumnName="brand" />
+                <ScalarProperty Name="english_name" ColumnName="english_name" />
+                <ScalarProperty Name="short_product_name" ColumnName="short_product_name" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_customize_id" ColumnName="product_customize_id" />
+                <ScalarProperty Name="product_type_id" ColumnName="product_type_id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

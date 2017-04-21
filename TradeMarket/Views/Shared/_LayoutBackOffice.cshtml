@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 購物平台</title>
+    @Styles.Render("~/Content/css")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+
+
+    @*<script src="https://code.jquery.com/jquery-1.12.3.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>*@
+    
+    
+    @* DataTables *@
+    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+
+
+    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-with-addons.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.js"></script>*@
+
+
+    <!-- The core React library -->
+    <script src="~/Scripts/react.js"></script>
+    <!-- The ReactDOM Library -->
+    <script src="~/Scripts/react-dom.js"></script>
+    <script src="~/Scripts/JSXTransformer.js"></script>
+
+
+
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/reactable/0.14.1/reactable.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fixed-data-table/0.6.3/fixed-data-table-base.css"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fixed-data-table/0.6.3/fixed-data-table-style.css"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fixed-data-table/0.6.3/fixed-data-table.css"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fixed-data-table/0.6.3/fixed-data-table.js"></script>
+
+    <script type="application/json" src="https://raw.github.com/botmonster/jquery-bootpag/master/lib/jquery.bootpag.min.js">
+    </script>*@
+
+    @*<script src="~/Scripts/jquery.twbsPagination.js"></script>
+    <script src="~/Scripts/pagination.js"></script>*@
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+
+
+</head>
+<body>
+
+    @if (Session["account"] == null)
+    {
+        <script type="text/javascript">
+            alert('請先登入');
+            window.location.replace("@Url.Action("Login", "Home")");
+        </script>
+    }
+    else
+    {
+        if (Session["role"].ToString() == "1")
+        {
+            <script type="text/javascript">
+                alert('權限不足');
+                window.location.replace("@Url.Action("Login", "Home")");
+            </script>
+        }
+
+    }
+    <div  class="navbar navbar-inverse navbar-fixed-top">
+        <div  class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("市集", "Index", "BackOffice", new { area = "" }, new { @class = "navbar-brand" })
+            </div>            
+            <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("分類管理", "ProductType", "BackOffice")</li>
+                        <li>@Html.ActionLink("產品管理", "Product", "BackOffice")</li>                        
+                        <li>@Html.ActionLink("訂單管理", "Order", "BackOffice")</li>
+                    </ul>    
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("登出", "LogOff", "BackOffice")</li>
+                    </ul>
+                </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+
+        <div class="row">
+            @RenderBody()
+        </div>
+
+
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+
+</html>
+

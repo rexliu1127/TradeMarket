@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="68be098d71ca47cf9b7aff9c2d7928d0" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="TradeMarketModel.cart_order" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeMarketModel.cart_order_detail" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeMarketModel.department" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeMarketModel.member" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeMarketModel.member_type" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeMarketModel.product_on_sales" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeMarketModel.product_type" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradeMarketModel.supply" Width="1.5" PointX="3.375" PointY="9.75" />
+        <EntityTypeShape EntityType="TradeMarketModel.error_log" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="TradeMarketModel.product_unit" Width="1.5" PointX="9.375" PointY="6.75" />
+        <EntityTypeShape EntityType="TradeMarketModel.temp_cart" Width="1.5" PointX="9.125" PointY="9.125" />
+        <EntityTypeShape EntityType="TradeMarketModel.product" Width="1.5" PointX="5.375" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
