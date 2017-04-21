@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityConstructor\product_type.cs" />
     <Compile Include="EntityConstructor\product.cs" />
     <Compile Include="product.cs">
       <DependentUpon>db.tt</DependentUpon>
@@ -112,6 +113,8 @@
       <DependentUpon>db.tt</DependentUpon>
     </Compile>
     <Compile Include="Utility.cs" />
+    <Compile Include="ViewModel\CreateProductType.cs" />
+    <Compile Include="ViewModel\UpdateProductType.cs" />
     <Compile Include="ViewModel\UpdateProduct .cs" />
     <Compile Include="ViewModel\CreateProduct.cs" />
     <Compile Include="ViewModel\MemberViewModel.cs" />
