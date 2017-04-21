@@ -617,8 +617,6 @@ namespace LibraryTradeMarket
 
             try
             {
-                TradeMarketEntities db = new TradeMarketEntities();
-
 
                 BooleanMessage bmCheck = new BooleanMessage();
 
@@ -630,6 +628,8 @@ namespace LibraryTradeMarket
                     return bm;
                 }
 
+                TradeMarketEntities db = new TradeMarketEntities();
+               
                 //int productTypeID = 1;
 
                 //var product_types = from t in db.product_type
@@ -689,9 +689,12 @@ namespace LibraryTradeMarket
                 else
                 {
                     TradeMarketEntities db = new TradeMarketEntities();
-                    var count = (from t in db.product_type
-                                 where t.id == Utility.getIntOrDefault(createProduct.ProductTypeID,1)
-                                 select t).Count();
+
+                    int productTypeID = Utility.getIntOrDefault(createProduct.ProductTypeID, 0);
+
+                    int count = db.product_type.Where(o => o.id == productTypeID).Count();
+                                 
+                                 
                     if (count == 0)
                     {
                         bm.Message += "產品分類不存在\n";
@@ -705,11 +708,7 @@ namespace LibraryTradeMarket
                 else
                 {
                     TradeMarketEntities db = new TradeMarketEntities();
-                    var count = (from t in db.product
-                                        where t.product_customize_id == createProduct.CustomizeID
-                                        select t).Count();
-
-
+                    int count = db.product.Where(o=>o.product_customize_id == createProduct.CustomizeID).Count();
                     if (count > 0)
                     {
                         bm.Message += "產品代碼重覆\n";
@@ -720,10 +719,6 @@ namespace LibraryTradeMarket
                 {
                     bm.Message += "請輸入產品名稱\n";
                 }
-
-                
-
-
 
                 if (bm.Message == "")
                 {
@@ -754,8 +749,17 @@ namespace LibraryTradeMarket
 
             try
             {
-
                 //Check Before Update
+                BooleanMessage bmCheck = new BooleanMessage();
+
+                bmCheck = isCheckUpdateProduct(updateProduct);
+
+                if (bmCheck.Result == false)
+                {
+                    bm = bmCheck;
+                    return bm;
+                }
+
 
                 TradeMarketEntities db = new TradeMarketEntities();
 
@@ -792,27 +796,46 @@ namespace LibraryTradeMarket
             return bm;
         }
 
-        public BooleanMessage isCheckUpdateProduct(CreateProduct createProduct)
+        public BooleanMessage isCheckUpdateProduct(UpdateProduct updateProduct)
         {
             BooleanMessage bm = new BooleanMessage();
 
             try
             {
-                if (String.IsNullOrEmpty(createProduct.DepartmentID))
+                if (String.IsNullOrEmpty(updateProduct.DepartmentID))
                 {
                     bm.Message += "請輸入部門編號\n";
                 }
 
-                if (String.IsNullOrEmpty(createProduct.ProductTypeID))
+                if (String.IsNullOrEmpty(updateProduct.UpdateCustomizeID))
+                {
+                    bm.Message += "請輸入欲更新產品的代碼\n";
+                }
+                else
+                {
+                    TradeMarketEntities db = new TradeMarketEntities();
+                    //var count = (from t in db.product
+                    //             where t.product_customize_id == updateProduct.UpdateCustomizeID
+                    //             select t).Count();
+                    int count = db.product.Where(o => o.product_customize_id == updateProduct.CustomizeID).Count();
+                    if (count == 0)
+                    {
+                        bm.Message += "查無欲更新產品的代碼\n";
+                    }
+
+                }
+
+                if (String.IsNullOrEmpty(updateProduct.ProductTypeID))
                 {
                     bm.Message += "請輸入產品分類\n";
                 }
                 else
                 {
                     TradeMarketEntities db = new TradeMarketEntities();
-                    var count = (from t in db.product_type
-                                 where t.product_type_name == createProduct.ProductTypeID
-                                 select t).Count();
+
+                    int productTypeID = Utility.getIntOrDefault(updateProduct.ProductTypeID, 0);
+
+                    int count = db.product_type.Where(o => o.id == productTypeID).Count();
 
 
                     if (count == 0)
@@ -821,25 +844,32 @@ namespace LibraryTradeMarket
                     }
                 }
 
-                if (String.IsNullOrEmpty(createProduct.CustomizeID))
+                if (String.IsNullOrEmpty(updateProduct.CustomizeID))
                 {
                     bm.Message += "請輸入產品代碼\n";
                 }
                 else
                 {
                     TradeMarketEntities db = new TradeMarketEntities();
-                    var count = (from t in db.product
-                                 where t.product_customize_id == createProduct.CustomizeID
-                                 select t).Count();
+                    //var count = (from t in db.product
+                    //             where t.product_customize_id == updateProduct.CustomizeID
+                    //             select t).Count();
 
 
+                    //if (count > 0)
+                    //{
+                    //    bm.Message += "產品代碼重覆\n";
+                    //}
+
+                    int count = db.product.Where(o => o.product_customize_id == updateProduct.CustomizeID).Count();
                     if (count > 0)
                     {
                         bm.Message += "產品代碼重覆\n";
                     }
+
                 }
 
-                if (String.IsNullOrEmpty(createProduct.ProductName))
+                if (String.IsNullOrEmpty(updateProduct.ProductName))
                 {
                     bm.Message += "請輸入產品名稱\n";
                 }

@@ -11,6 +11,7 @@ namespace LibraryTradeMarket
         
 
         private string updateCustomizeID;
+        private string departmentID;
         private string productTypeID;
         private string customizeID;
         private string productName;
@@ -25,20 +26,43 @@ namespace LibraryTradeMarket
 
             set
             {
-                updateCustomizeID = value;                                
+                updateCustomizeID = value;
             }
         }
 
-        public string ProductTypeID
+
+        public string DepartmentID
         {
             get
             {
-                return updateCustomizeID;
+                return departmentID;
             }
 
             set
             {
-                updateCustomizeID = value;
+                if (Utility.getIntOrDefault(DepartmentID, 0) <= 0)
+                {
+                    departmentID = "1";
+                }
+                else
+                {
+                    departmentID = value;
+                }
+
+            }
+        }
+
+        
+        public string ProductTypeID
+        {
+            get
+            {
+                return productTypeID;
+            }
+
+            set
+            {
+                productTypeID = value;
             }
         }
 

@@ -43,6 +43,18 @@ namespace WpfApp1
 
             bm = b.isCreateProduct(cp);
 
+            UpdateProduct up = new UpdateProduct();
+
+            up.UpdateCustomizeID = "0004";
+
+            up.DepartmentID = "1";
+            up.CustomizeID = "00045";
+            up.ProductName = "高山高麗菜";
+            up.ProductTypeID = "雜類";
+            up.UpdateMemberID = "1";
+
+            bm = b.isUpdateProduct(up);
+
             //bm = b.isUpdateProduct("0001", "00011", "特級香蕉", "");
 
             bm = b.isDeleteProduct("000111");
