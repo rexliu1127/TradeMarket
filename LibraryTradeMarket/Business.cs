@@ -771,11 +771,11 @@ namespace LibraryTradeMarket
 
                 if (product != null)
                 {
-                    product newProduct = db.product.FirstOrDefault(o => o.product_customize_id == updateProduct.UpdateCustomizeID);
-                    newProduct.update_date = DateTime.Now;
-                    newProduct.product_customize_id = updateProduct.CustomizeID;
-                    newProduct.product_name = updateProduct.ProductName;
-                    newProduct.update_member_id = Utility.getIntOrDefault(updateProduct.UpdateMemberID, 1);
+                    //product newProduct = db.product.FirstOrDefault(o => o.product_customize_id == updateProduct.UpdateCustomizeID);
+                    product.update_date = DateTime.Now;
+                    product.product_customize_id = updateProduct.CustomizeID;
+                    product.product_name = updateProduct.ProductName;
+                    product.update_member_id = Utility.getIntOrDefault(updateProduct.UpdateMemberID, 1);
                     db.Entry(product).State = EntityState.Modified;
                     db.SaveChanges();
 
