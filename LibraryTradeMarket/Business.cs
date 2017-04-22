@@ -958,30 +958,10 @@ namespace LibraryTradeMarket
 
                 TradeMarketEntities db = new TradeMarketEntities();
 
-                //int productTypeID = 1;
+                
 
-                //var product_types = from t in db.product_type
-                //                    where t.product_type_name == createProductType.ProductTypeTypeName
-                //                    select t;
-
-                //if (product_types != null)
-                //{
-                //    var product_type = product_types
-                //        .FirstOrDefault();
-
-                //    if (product_type != null)
-                //    {
-                //        productTypeID = product_type.id;
-                //    }
-                //}
-
-                product newProductType = new product();
-                newProductType.product_type_id = Utility.getIntOrDefault(createProductType.ProductTypeTypeID, 1);
-                newProductType.update_date = DateTime.Now;
-                newProductType.department_id = Utility.getIntOrDefault(createProductType.DepartmentID, 1);
-                newProductType.product_customize_id = createProductType.CustomizeID;
-                newProductType.product_name = createProductType.ProductTypeName;
-                newProductType.update_member_id = Utility.getIntOrDefault(createProductType.UpdateMemberID, 1);
+                product_type newProductType = new product_type();
+                newProductType.product_type_name = createProductType.ProductTypeName;                
                 db.Entry(newProductType).State = EntityState.Added;
 
                 db.SaveChanges();
@@ -1005,12 +985,7 @@ namespace LibraryTradeMarket
 
             try
             {
-                if (String.IsNullOrEmpty(createProductType.DepartmentID))
-                {
-                    bm.Message += "請輸入部門編號\n";
-                }
-
-                if (String.IsNullOrEmpty(createProductType.ProductTypeTypeID))
+                if (String.IsNullOrEmpty(createProductType.ProductTypeName))
                 {
                     bm.Message += "請輸入產品分類\n";
                 }
@@ -1018,35 +993,14 @@ namespace LibraryTradeMarket
                 {
                     TradeMarketEntities db = new TradeMarketEntities();
 
-                    int productTypeID = Utility.getIntOrDefault(createProductType.ProductTypeTypeID, 0);
-
-                    int count = db.product_type.Where(o => o.id == productTypeID).Count();
-
-
-                    if (count == 0)
-                    {
-                        bm.Message += "產品分類不存在\n";
-                    }
-                }
-
-                if (String.IsNullOrEmpty(createProductType.CustomizeID))
-                {
-                    bm.Message += "請輸入產品代碼\n";
-                }
-                else
-                {
-                    TradeMarketEntities db = new TradeMarketEntities();
-                    int count = db.product.Where(o => o.product_customize_id == createProductType.CustomizeID).Count();
+                    int count = db.product_type.Where(o => o.product_type_name == createProductType.ProductTypeName).Count();
                     if (count > 0)
                     {
-                        bm.Message += "產品代碼重覆\n";
+                        bm.Message += "產品分類重覆\n";
                     }
+
                 }
 
-                if (String.IsNullOrEmpty(createProductType.ProductTypeName))
-                {
-                    bm.Message += "請輸入產品名稱\n";
-                }
 
                 if (bm.Message == "")
                 {
@@ -1091,27 +1045,26 @@ namespace LibraryTradeMarket
 
                 TradeMarketEntities db = new TradeMarketEntities();
 
-                var products = from a in db.product
-                               where a.product_customize_id == updateProductType.UpdateCustomizeID
+                var product_types = from a in db.product_type
+                               where a.id == Utility.getIntOrDefault(updateProductType.UpdateID,0)
                                select a;
 
-                var product = products.FirstOrDefault();
+                var product_type = product_types.FirstOrDefault();
 
-                if (product != null)
+                if (product_type != null)
                 {
-                    product newProductType = db.product.FirstOrDefault(o => o.product_customize_id == updateProductType.UpdateCustomizeID);
-                    newProductType.update_date = DateTime.Now;
-                    newProductType.product_customize_id = updateProductType.CustomizeID;
-                    newProductType.product_name = updateProductType.ProductTypeName;
-                    newProductType.update_member_id = Utility.getIntOrDefault(updateProductType.UpdateMemberID, 1);
-                    db.Entry(product).State = EntityState.Modified;
+                    product_type newProductType = db.product_type.FirstOrDefault(o => o.id == Utility.getIntOrDefault(updateProductType.UpdateID,0));
+                    
+                    newProductType.product_type_name = updateProductType.ProductTypeName;
+                    
+                    db.Entry(product_type).State = EntityState.Modified;
                     db.SaveChanges();
 
                     bm.Result = true;
                 }
                 else
                 {
-                    bm.Message = "該代碼查無資料";
+                    bm.Message = "該編號查無資料";
                 }
 
             }
@@ -1130,80 +1083,26 @@ namespace LibraryTradeMarket
 
             try
             {
-                if (String.IsNullOrEmpty(updateProductType.DepartmentID))
+                if (String.IsNullOrEmpty(updateProductType.UpdateID))
                 {
-                    bm.Message += "請輸入部門編號\n";
+                    bm.Message += "請輸入欲修改的分類編號\n";
                 }
 
-                if (String.IsNullOrEmpty(updateProductType.UpdateCustomizeID))
-                {
-                    bm.Message += "請輸入欲更新產品的代碼\n";
-                }
-                else
-                {
-                    TradeMarketEntities db = new TradeMarketEntities();
-                    //var count = (from t in db.product
-                    //             where t.product_customize_id == updateProductType.UpdateCustomizeID
-                    //             select t).Count();
-                    int count = db.product.Where(o => o.product_customize_id == updateProductType.CustomizeID).Count();
-                    if (count == 0)
-                    {
-                        bm.Message += "查無欲更新產品的代碼\n";
-                    }
-
-                }
-
-                if (String.IsNullOrEmpty(updateProductType.ProductTypeTypeID))
+                if (String.IsNullOrEmpty(updateProductType.ProductTypeName))
                 {
                     bm.Message += "請輸入產品分類\n";
                 }
                 else
                 {
                     TradeMarketEntities db = new TradeMarketEntities();
-
-                    int productTypeID = Utility.getIntOrDefault(updateProductType.ProductTypeTypeID, 0);
-
-                    int count = db.product_type.Where(o => o.id == productTypeID).Count();
-
-
-                    if (count == 0)
+                    
+                    int count = db.product_type.Where(o => o.product_type_name == updateProductType.ProductTypeName).Count();
+                    if (count >0)
                     {
-                        bm.Message += "產品分類不存在\n";
-                    }
-                }
-
-                if (String.IsNullOrEmpty(updateProductType.CustomizeID))
-                {
-                    bm.Message += "請輸入產品代碼\n";
-                }
-                else
-                {
-                    TradeMarketEntities db = new TradeMarketEntities();
-                    //var count = (from t in db.product
-                    //             where t.product_customize_id == updateProductType.CustomizeID
-                    //             select t).Count();
-
-
-                    //if (count > 0)
-                    //{
-                    //    bm.Message += "產品代碼重覆\n";
-                    //}
-
-                    int count = db.product.Where(o => o.product_customize_id == updateProductType.CustomizeID).Count();
-                    if (count > 0)
-                    {
-                        bm.Message += "產品代碼重覆\n";
+                        bm.Message += "產品分類重覆\n";
                     }
 
                 }
-
-                if (String.IsNullOrEmpty(updateProductType.ProductTypeName))
-                {
-                    bm.Message += "請輸入產品名稱\n";
-                }
-
-
-
 
 
                 if (bm.Message == "")
@@ -1228,7 +1127,7 @@ namespace LibraryTradeMarket
             return bm;
         }
 
-        public BooleanMessage isDeleteProductType(string deleteCustomizeID)
+        public BooleanMessage isDeleteProductType(string deleteID)
         {
 
             BooleanMessage bm = new BooleanMessage();
@@ -1240,16 +1139,16 @@ namespace LibraryTradeMarket
 
                 TradeMarketEntities db = new TradeMarketEntities();
 
-                var products = from a in db.product
-                               where a.product_customize_id == deleteCustomizeID
+                var products = from a in db.product_type
+                               where a.id == Utility.getIntOrDefault(deleteID,0)
                                select a;
 
                 var product = products.FirstOrDefault();
 
                 if (product != null)
                 {
-                    product deleteProductType = db.product.FirstOrDefault(o => o.product_customize_id == deleteCustomizeID);
-                    db.product.Remove(deleteProductType);
+                    product_type deleteProductType = db.product_type.FirstOrDefault(o => o.id == Utility.getIntOrDefault(deleteID,0));
+                    db.product_type.Remove(deleteProductType);
                     db.SaveChanges();
 
                     bm.Result = true;

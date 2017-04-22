@@ -34,6 +34,27 @@ namespace WpfApp1
 
             BooleanMessage bm = new BooleanMessage();
 
+            CreateProductType cpt = new CreateProductType();
+            cpt.ProductTypeName = "進口類";
+            
+
+            bm = b.isCreateProductType(cpt);
+
+            UpdateProductType upt = new UpdateProductType();
+
+            upt.UpdateID = "5";
+
+            upt.ProductTypeName = "進口";
+            
+
+            bm = b.isUpdateProductType(upt);
+
+            //bm = b.isUpdateProduct("0001", "00011", "特級香蕉", "");
+
+            bm = b.isDeleteProductType("5");
+
+
+
             CreateProduct cp = new CreateProduct();
             cp.DepartmentID = "1";
             cp.CustomizeID = "0009";
