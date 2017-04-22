@@ -1045,15 +1045,17 @@ namespace LibraryTradeMarket
 
                 TradeMarketEntities db = new TradeMarketEntities();
 
+                int updateID = Utility.getIntOrDefault(updateProductType.UpdateID, 0);
+
                 var product_types = from a in db.product_type
-                               where a.id == Utility.getIntOrDefault(updateProductType.UpdateID,0)
+                               where a.id == updateID
                                select a;
 
                 var product_type = product_types.FirstOrDefault();
 
                 if (product_type != null)
                 {
-                    product_type newProductType = db.product_type.FirstOrDefault(o => o.id == Utility.getIntOrDefault(updateProductType.UpdateID,0));
+                    product_type newProductType = db.product_type.FirstOrDefault(o => o.id == updateID);
                     
                     newProductType.product_type_name = updateProductType.ProductTypeName;
                     
@@ -1095,8 +1097,11 @@ namespace LibraryTradeMarket
                 else
                 {
                     TradeMarketEntities db = new TradeMarketEntities();
-                    
-                    int count = db.product_type.Where(o => o.product_type_name == updateProductType.ProductTypeName).Count();
+
+
+                    int updateID = Utility.getIntOrDefault(updateProductType.UpdateID, 0);
+
+                    int count = db.product_type.Where(o => o.product_type_name == updateProductType.ProductTypeName && o.id != updateID).Count();
                     if (count >0)
                     {
                         bm.Message += "產品分類重覆\n";
@@ -1139,15 +1144,18 @@ namespace LibraryTradeMarket
 
                 TradeMarketEntities db = new TradeMarketEntities();
 
+                int newDeleteID = 0;
+                newDeleteID = Utility.getIntOrDefault(deleteID, 0);
+
                 var products = from a in db.product_type
-                               where a.id == Utility.getIntOrDefault(deleteID,0)
+                               where a.id == newDeleteID
                                select a;
 
                 var product = products.FirstOrDefault();
 
                 if (product != null)
                 {
-                    product_type deleteProductType = db.product_type.FirstOrDefault(o => o.id == Utility.getIntOrDefault(deleteID,0));
+                    product_type deleteProductType = db.product_type.FirstOrDefault(o => o.id == newDeleteID);
                     db.product_type.Remove(deleteProductType);
                     db.SaveChanges();
 

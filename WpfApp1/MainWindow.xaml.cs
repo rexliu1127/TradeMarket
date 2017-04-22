@@ -51,7 +51,7 @@ namespace WpfApp1
 
             //bm = b.isUpdateProduct("0001", "00011", "特級香蕉", "");
 
-            bm = b.isDeleteProductType("5");
+            bm = b.isDeleteProductType("6");
 
 
 
