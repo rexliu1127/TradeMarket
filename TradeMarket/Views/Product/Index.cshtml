@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutBackOffice.cshtml";
+}
+
+<h2>Index</h2>
+
+
+<script type="text/javascript">
+    //function hideTable()
+    //{
+    //    $("#tb_product").hide();
+    //}
+
+    //function showTable() {
+    //    $("#tb_product").show();
+    //}
+    function checkMsg() {
+
+        var msg = '@ViewBag.ErrorMessage';
+
+        if(!msg && typeof msg != "undefined" && msg != 0)
+        {
+            //alert('not null'+msg);
+        }
+        else
+        {
+            //alert('null'+msg);
+        }
+
+
+    }
+
+    //function getCount() {
+    //    $.get("/api/webapi/getProduct?department_id=" + $('#department_id').val() + "&customize_id=" + $('#customize_id').val() + "&product_name=" + $('#product_name').val(), function (data) {
+    //        alert(data);
+    //    });
+    //}
+
+    function doQuery() {
+
+        $.get("http://220/130.10.50:6868/api/webapi/getProductCount?departmentID=" + $('#department_id').val() + "&customizeID=" + $('#customize_id').val() + "&productName=" + $('#product_name').val() + "&productTypeName=" + $('#product_type_name').val(), function (data) {
+            console.log(data);
+            if (data > 1000) {
+                $('#msg').html('資料筆數:' + data + '筆,請縮小查詢範圍');
+                return;
+            }
+            else if(data==0)
+            {
+                $('#msg').html('資料筆數:' + data + '筆,請重新輸入條件');
+                return;
+            }
+            else {
+                $('#tb_product').css("visibility", "visible");
+                $('#msg').html('');
+
+                $('#tb_product').DataTable(
+                {
+                    "ajax": {
+                        "url": "http://220.130.10.50:6868/api/webapi/getProduct?departmentID=" + $('#department_id').val() + "&customizeID=" + $('#customize_id').val() + "&productName=" + $('#product_name').val() + "&productTypeName=" + $('#product_type_name').val(),
+                        "dataSrc": ""
+                    },
+                    "columnDefs": [
+                        {
+                            "targets": 0,
+                            "data": null,
+                            "orderable": false,
+                            "searchable": false,
+                            "render": function (data, type, full, meta) {
+                                return ' <button type="button" class="btn btn-info btn-md" data-toggle="modal" id=' + data.id +
+                                        ' data-target="#editModal">修改</button>|' +
+                                        ' <button type="button" class="btn btn-info btn-md" data-toggle="modal" id=' + data.id +
+                                        ' data-target="#deleteModal">刪除</button>'
+                                ;
+                            }
+                        },
+                        {
+                            "targets": 1,
+                            "data": "ProductCustomizeID"
+                        },
+                        {
+                            "targets": 2,
+                            "data": "ProductName"
+                        },
+                    ],
+                    "aaSorting": [[1, 'asc']],
+                    "language": {
+                        "url": "/Scripts/Chinese-traditional.js"
+                    },
+                    "bDestroy": true
+                });
+            }
+        });
+
+    }
+
+
+
+
+</script>
+
+<form>
+    <div class="form-group">
+        <label for="department_id">部門編號</label>
+        <input class="form-control" id="department_id" placeholder="查詢部門編號" value="1">
+    </div>
+    <div class="form-group">
+        <label for="product_name">分類名稱</label>
+        <input class="form-control" id="product_type_name" placeholder="查詢分類名稱" value="">
+    </div>
+    <div class="form-group">
+        <label for="customize_id">產品代碼</label>
+        <input class="form-control" id="customize_id" placeholder="查詢產品代碼" value="">
+    </div>
+    <div class="form-group">
+        <label for="product_name">產品名稱</label>
+        <input class="form-control" id="product_name" placeholder="查詢產品名稱" value="">
+    </div>
+    <button type="button" class="btn btn-primary" onclick="doQuery()">送出</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">新增</button>
+    <div>
+        <span id="msg" style="color:red"></span>
+    </div>
+</form>
+<p></p>
+
+<table id="tb_product" style="visibility:hidden">
+    <thead>
+        <tr>
+            <th></th>
+            <th>代碼</th>
+            <th>名稱</th>
+
+        </tr>
+    </thead>
+</table>

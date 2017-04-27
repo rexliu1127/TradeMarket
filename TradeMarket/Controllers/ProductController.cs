@@ -9,14 +9,22 @@ namespace TradeMarket.Controllers
     public class ProductController : Controller
     {
         [HttpPost]
-        public ActionResult EditProduct(string updateCustomizeID ="", string customizeID = "", string productName = "",string updateMemberID="")
+        public ActionResult EditProduct(string updateCustomizeID ="", string productTypeID="", string customizeID = "", string productName = "",string updateMemberID="")
         {
 
             Business business = new Business();
             BooleanMessage bm = new BooleanMessage();
             try
             {
-                bm = business.isUpdateProduct(updateCustomizeID, customizeID, productName, updateMemberID);
+
+                UpdateProduct updateProduct = new UpdateProduct();
+                updateProduct.UpdateCustomizeID = updateCustomizeID;
+                updateProduct.ProductTypeID = productTypeID;
+                updateProduct.CustomizeID = customizeID;
+                updateProduct.ProductName = productName;
+                updateProduct.UpdateCustomizeID = updateMemberID;
+
+                bm = business.isUpdateProduct(updateProduct);
 
                 if (bm.Result == true)
                 {

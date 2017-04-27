@@ -72,53 +72,12 @@
     }
 
 
-    //$(document).ready(function () {        
-
-    //    $.get('http://220.130.10.50:6868/api/WebApi/getProductByType?productType=' + getParameterByName('productType'), "", function (data) {
-    //        var path = '';
-
-    //        //data = '[{"id":1,"name":"香蕉類"},{"id":2,"name":"西瓜類"},{"id":3,"name":"蘋果類"}]';
-
-    //        var obj = JSON.parse(data);
-
-    //        for (var k in obj)
-    //        {
-    //            if (path == '') {
-    //                path = '<a href="Product?productType=' + obj[k].catalog_id + '">' + obj[k].name + '</a>'
-    //            }
-    //            else
-    //            {
-    //                path = path+'>'+'<a href="Product?productType=' + obj[k].catalog_id + '">' + obj[k].name + '</a>'
-    //            }
-    //        }
-
-    //        $("#path").html(path);
-
-    //    });
-
-    //    $('#productTable').DataTable({
-    //        "ajax": {
-    //            "url": 'http://220.130.10.50:6868/api/WebApi/getProductByType?productType=' + getParameterByName('productType'),
-    //            "dataSrc": ""
-    //        },
-    //        "language": {
-    //            "url": "/Scripts/Chinese-traditional.json" //"http://cdn.datatables.net/plug-ins/1.10.12/i18n/Chinese-traditional.json"
-    //        },
-    //        "columns": [
-    //            { "data": "ProductCustomizeID" },
-    //            { "data": "ProductName" },
-    //            { "data": "ProductUnitName" },
-    //            { "data": "ProductTypeName" }
-    //        ]
-    //    });
-
-
-    //});
+    
 
 </script>
 
 
-<script type="text/jsx">
+@*<script type="text/jsx">
 
     var listOfProduct = [{ProductCustomizeID:1,ProductName:"香蕉",price:1,unit_name:"PCS"},
     {ProductCustomizeID:2,ProductName:"芭樂",price:1,unit_name:"PCS"},
@@ -126,9 +85,9 @@
     {ProductCustomizeID:4,ProductName:"蘋果",price:1,unit_name:"PCS"},
     ]  //['id':'1234','JavaScript', 'Java', 'Node', 'Python'];
 
-    console.log('http://220.130.10.50:6868/api/WebApi/getProductByType?productType=' + getParameterByName('productType'));
+    console.log('http://220.130.10.50:6868/api/WebApi/getProductByTypeName?productTypeName=' + getParameterByName('productType'));
 
-    fetch('http://220.130.10.50:6868/api/WebApi/getProductByType?productType=' + getParameterByName('productType'), {
+    fetch('http://220.130.10.50:6868/api/WebApi/getProductByTypeName?productTypeName=' + getParameterByName('productType'), {
     method: 'get'
     }).then(function(response) {
     return response.json();
@@ -197,7 +156,7 @@
 
 
 
-</script>
+</script>*@
 
 <br />
 <div id="div_product2">
@@ -207,13 +166,13 @@
 <script>
     function doQuery() {
 
-        $.get('http://220.130.10.50:6868/api/WebApi/getProductCountByType?productType=' + getParameterByName('productType'), function (data) {
+        $.get('http://220.130.10.50:6868/api/WebApi/getProductCountByProductTypeName?productTypeName=' + getParameterByName('productTypeName'), function (data) {
             console.log(data);
-            //if (data > 1000) {
-            //    $('#msg').html('資料筆數:' + data + '筆,請縮小查詢範圍');
-            //    return;
-            //}
-            //else
+            if (data > 1000) {
+                $('#msg').html('資料筆數:' + data + '筆,請縮小查詢範圍');
+                return;
+            }
+            else
             if (data == 0) {
                 $('#msg').html('資料筆數:' + data + '筆,請重新輸入條件');
                 return;
@@ -225,7 +184,7 @@
                 $('#tb_product_list').DataTable(
                     {
                         "ajax": {
-                            "url": "http://220.130.10.50:6868/api/WebApi/getProductByType?productType=" + getParameterByName('productType'),
+                            "url": "http://220.130.10.50:6868/api/WebApi/getProductByProductTypeName?productTypeName=" + getParameterByName('productTypeName'),
                             "dataSrc": ""
                         },
                         "columnDefs": [
@@ -250,9 +209,9 @@
                                 "searchable": false,
                                 "render": function (data, type, full, meta) {
                                     return '<button type="button" class="btn btn-md btn-default" data-toggle="modal" id=' + data.ProductCustomizeID +
-                                            ' data-img_url=' + 'http://ppt.cc/qqXvt' +
+                                            ' data-img_url=' + '/Image/fruit.jpg' +
                                             ' data-target="#imgModal">' +
-                                            '<img width="100%" src="http://ppt.cc/qqXvt" />' +
+                                            '<img width="100%" src="/Image/fruit_s.jpg" />' +
                                             '</button>'
                                         ;
                                 }

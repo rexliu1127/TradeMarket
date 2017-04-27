@@ -175,7 +175,7 @@ namespace ApiTradeMarket.Controllers
 
         [HttpGet]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public HttpResponseMessage getProductByType(string productTypeName)
+        public HttpResponseMessage getProductByProductTypeName(string productTypeName)
         {
             string result = "";
             Business business = new Business();
@@ -452,7 +452,7 @@ namespace ApiTradeMarket.Controllers
 
         [HttpGet]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public HttpResponseMessage getProductCount(int departmentID = 1, string customizeID = "", string productName = "", string productTypeName = "", int resultCountOnly = 0)
+        public HttpResponseMessage getProductCount(int departmentID = 1, string customizeID = "", string productName = "", string productTypeName = "")
         {
             string result = "";
             Business business = new Business();

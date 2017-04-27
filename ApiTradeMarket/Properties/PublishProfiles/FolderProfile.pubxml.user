@@ -80,7 +80,7 @@
       <publishTime>02/22/2013 08:43:40</publishTime>
     </File>
     <File Include="bin/ApiTradeMarket.dll">
-      <publishTime>04/19/2017 17:56:42</publishTime>
+      <publishTime>04/27/2017 12:02:11</publishTime>
     </File>
     <File Include="bin/ApplicationInsights.config">
       <publishTime>03/16/2017 11:03:17</publishTime>
@@ -95,10 +95,10 @@
       <publishTime>01/04/2017 00:44:16</publishTime>
     </File>
     <File Include="bin/LibraryTradeMarket.dll">
-      <publishTime>04/19/2017 17:54:53</publishTime>
+      <publishTime>04/27/2017 11:34:38</publishTime>
     </File>
     <File Include="bin/LibraryTradeMarket.dll.config">
-      <publishTime>03/21/2017 12:28:53</publishTime>
+      <publishTime>04/20/2017 18:24:08</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>11/30/2016 16:07:42</publishTime>
@@ -350,7 +350,7 @@
       <publishTime>03/16/2017 11:02:32</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/19/2017 17:56:42</publishTime>
+      <publishTime>04/27/2017 12:02:12</publishTime>
     </File>
   </ItemGroup>
 </Project>
