@@ -41,7 +41,7 @@ namespace WpfApp1
             bm = b.isCreateProductType(cpt);
 
             UpdateProductType upt = new UpdateProductType();
-
+            //test
             upt.UpdateID = "5";
 
             upt.ProductTypeName = "進口";
