@@ -8,6 +8,13 @@ namespace TradeMarket.Controllers
 {
     public class ProductController : Controller
     {
+
+        // GET: BackOffice
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult EditProduct(string updateCustomizeID ="", string productTypeID="", string customizeID = "", string productName = "",string updateMemberID="")
         {

@@ -177,12 +177,15 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\login.css" />
+    <Content Include="Content\select2.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Image\bana.jpg" />
     <Content Include="Image\buy.jpg" />
+    <Content Include="Image\fruit.jpg" />
+    <Content Include="Image\fruit_s.jpg" />
     <Content Include="Image\guo.jpg" />
     <Content Include="Image\loginlogo.png" />
     <Content Include="Image\wat.jpg" />
@@ -208,6 +211,7 @@
     <Content Include="Scripts\react.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\select2.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

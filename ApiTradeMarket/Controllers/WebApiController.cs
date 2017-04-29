@@ -508,8 +508,98 @@ namespace ApiTradeMarket.Controllers
 
         }
 
+        [HttpPost]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage isCreateProduct(CreateProduct product)
+        {
+            //string result = "";
+            BooleanMessage bm = new BooleanMessage();
+            
+            Business business = new Business();
 
+            try
+            {
 
+                bm = business.isCreateProduct(product);
+                
+            }
+            catch (Exception ex)
+            {
+                business.addErrorLog("WebApi", "isCreateProduct", ex.Message);
+                //Utility.ErrorMessageToLogFile(ex);
+                //throw;
+            }
+
+            string result = JsonConvert.SerializeObject(bm);
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(result)
+            };
+
+        }
+
+        [HttpPost]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage isUpdateProduct(UpdateProduct product)
+        {
+            //string result = "";
+            BooleanMessage bm = new BooleanMessage();
+
+            Business business = new Business();
+
+            try
+            {
+
+                bm = business.isUpdateProduct(product);
+
+            }
+            catch (Exception ex)
+            {
+                business.addErrorLog("WebApi", "isUpdateProduct", ex.Message);
+                //Utility.ErrorMessageToLogFile(ex);
+                //throw;
+            }
+
+            string result = JsonConvert.SerializeObject(bm);
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(result)
+            };
+
+        }
+
+        [HttpPost]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage isDeleteProduct(string deleteCustomizeID)
+        {
+            //string result = "";
+            BooleanMessage bm = new BooleanMessage();
+
+            Business business = new Business();
+
+            try
+            {
+
+                bm = business.isDeleteProduct(deleteCustomizeID);
+
+            }
+            catch (Exception ex)
+            {
+                business.addErrorLog("WebApi", "isDeleteProduct", ex.Message);
+                //Utility.ErrorMessageToLogFile(ex);
+                //throw;
+            }
+
+            string result = JsonConvert.SerializeObject(bm);
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(result)
+            };
+
+        }
 
     }
 }

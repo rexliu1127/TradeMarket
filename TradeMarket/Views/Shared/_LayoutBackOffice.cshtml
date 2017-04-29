@@ -49,7 +49,8 @@
     <script src="~/Scripts/pagination.js"></script>*@
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
 
 
 </head>
@@ -86,7 +87,7 @@
             <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("分類管理", "ProductType", "BackOffice")</li>
-                        <li>@Html.ActionLink("產品管理", "Product", "BackOffice")</li>                        
+                        <li>@Html.ActionLink("產品管理", "Index", "Product")</li>                        
                         <li>@Html.ActionLink("訂單管理", "Order", "BackOffice")</li>
                     </ul>    
                     <ul class="nav navbar-nav">
@@ -109,7 +110,7 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jquery")*@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
