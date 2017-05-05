@@ -572,7 +572,7 @@ namespace ApiTradeMarket.Controllers
 
         [HttpPost]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
-        public HttpResponseMessage isDeleteProduct(string deleteCustomizeID)
+        public HttpResponseMessage isDeleteProduct(DeleteProduct deleteProduct)
         {
             //string result = "";
             BooleanMessage bm = new BooleanMessage();
@@ -582,7 +582,7 @@ namespace ApiTradeMarket.Controllers
             try
             {
 
-                bm = business.isDeleteProduct(deleteCustomizeID);
+                bm = business.isDeleteProduct(deleteProduct);
 
             }
             catch (Exception ex)

@@ -114,6 +114,7 @@
     </Compile>
     <Compile Include="Utility.cs" />
     <Compile Include="ViewModel\CreateProductType.cs" />
+    <Compile Include="ViewModel\DeleteProduct.cs" />
     <Compile Include="ViewModel\UpdateProductType.cs" />
     <Compile Include="ViewModel\UpdateProduct .cs" />
     <Compile Include="ViewModel\CreateProduct.cs" />

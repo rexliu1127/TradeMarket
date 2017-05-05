@@ -32,6 +32,11 @@ namespace WpfApp1
 
             Business b = new Business();
 
+
+            b.getProduct(1);
+
+            return;
+
             BooleanMessage bm = new BooleanMessage();
 
             CreateProductType cpt = new CreateProductType();
@@ -57,7 +62,7 @@ namespace WpfApp1
 
             CreateProduct cp = new CreateProduct();
             cp.DepartmentID = "1";
-            cp.CustomizeID = "0009";
+            cp.ProductCustomizeID = "0009";
             cp.ProductName = "3斤袋";
             cp.ProductTypeID = "雜類";
             cp.UpdateMemberID = "1";
@@ -66,10 +71,10 @@ namespace WpfApp1
 
             UpdateProduct up = new UpdateProduct();
 
-            up.UpdateCustomizeID = "0004";
+            up.UpdateProductCustomizeID = "0004";
 
             up.DepartmentID = "1";
-            up.CustomizeID = "00045";
+            up.ProductCustomizeID = "00045";
             up.ProductName = "高山高麗菜";
             up.ProductTypeID = "雜類";
             up.UpdateMemberID = "1";

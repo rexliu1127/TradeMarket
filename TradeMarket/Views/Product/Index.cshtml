@@ -24,7 +24,7 @@
 
     function doQuery() {
 
-        $.get("http://220.130.10.50:6868/api/webapi/getProductCount?departmentID=" + $('#department_id').val() + "&customizeID=" + $('#customize_id').val() + "&productName=" + $('#product_name').val() + "&productTypeName=" + $('#product_type_name').val(), function (data) {
+        $.get("http://220.130.10.50:6868/api/webapi/getProductCount?departmentID=" + $('#department_id').val() + "&customizeID=" + $('#customize_id').val() + "&productName=" + $('#productName').val() + "&productTypeName=" + $('#product_type_name').val(), function (data) {
             console.log(data);
             if (data > 1000) {
                 $('#msg').html('資料筆數:' + data + '筆,請縮小查詢範圍');
@@ -38,11 +38,11 @@
             else {
                 $('#tb_product').css("visibility", "visible");
                 $('#msg').html('');
-                console.log("api:"+"http://220.130.10.50:6868/api/webapi/getProduct?departmentID=" + $('#department_id').val() + "&customizeID=" + $('#customize_id').val() + "&productName=" + $('#product_name').val() + "&productTypeName=" + $('#product_type_name').val());
+                console.log("api:"+"http://220.130.10.50:6868/api/webapi/getProduct?departmentID=" + $('#department_id').val() + "&customizeID=" + $('#customize_id').val() + "&productName=" + $('#productName').val() + "&productTypeName=" + $('#product_type_name').val());
                 $('#tb_product').DataTable(
                 {
                     "ajax": {
-                        "url": "http://220.130.10.50:6868/api/webapi/getProduct?departmentID=" + $('#department_id').val() + "&customizeID=" + $('#customize_id').val() + "&productName=" + $('#product_name').val() + "&productTypeName=" + $('#product_type_name').val(),
+                        "url": "http://220.130.10.50:6868/api/webapi/getProduct?departmentID=" + $('#department_id').val() + "&customizeID=" + $('#customize_id').val() + "&productName=" + $('#productName').val() + "&productTypeName=" + $('#product_type_name').val(),
                         "dataSrc": "listOfProduct"
                     },
                     "columnDefs": [
@@ -53,15 +53,16 @@
                             "orderable": false,
                             "searchable": false,
                             "render": function (data, type, full, meta) {
-                                return '<button type="button" class="btn btn-info btn-md" data-toggle="modal" id=' + data.ProductCustomizeID +       
-                                    ' data-product_customize_id=' + data.ProductCustomizeID +                                    
-                                    ' data-product_name=' + data.ProductName +                                    
-                                    ' data-product_unit_name=' + data.ProductUnitName +
-                                    ' data-target="#editModal">修改</button> | ' +
-                                    '<button type="button" class="btn btn-danger btn-md" data-toggle="modal" id=' + data.ProductCustomizeID +
-                                    ' data-product_customize_id=' + data.ProductCustomizeID +
-                                    ' data-product_name=' + data.ProductName +                                    
-                                    ' data-product_unit_name=' + data.ProductUnitName +
+                                return '<button type="button" class="btn btn-info btn-md" data-toggle="modal" id=' + data.ProductCustomizeID +
+                                    ' productTypeID=' + data.ProductTypeID +
+                                    ' productCustomizeID=' + data.ProductCustomizeID +                                                             
+                                    ' productName=' + data.ProductName +                                    
+                                    ' productUnitName=' + data.ProductUnitName +
+                                    ' data-target="#updateModal">修改</button> | ' +
+                                    '<button type="button" class="btn btn-danger btn-md" data-toggle="modal" id=' + data.ProductCustomizeID +                                    
+                                    ' productCustomizeID=' + data.ProductCustomizeID +
+                                    ' productName=' + data.ProductName +                                    
+                                    ' productUnitName=' + data.ProductUnitName +
                                     ' data-target="#deleteModal">刪除</button>';
                             }
                         },
@@ -73,7 +74,7 @@
                             "searchable": false,
                             "render": function (data, type, full, meta) {
                                 return '<button type="button" class="btn btn-md btn-default" data-toggle="modal" id=' + data.ProductCustomizeID +
-                                    ' data-img_url=' + '/Image/fruit.jpg' +
+                                    ' imgUrl=' + '/Image/fruit.jpg' +
                                     ' data-target="#imgModal">' +
                                     '<img width="100%" src="/Image/fruit_s.jpg" />' +
                                     '</button>'
@@ -119,7 +120,7 @@
         <input class="form-control" id="department_id" placeholder="查詢部門編號" value="1">
     </div>
     <div class="form-group">
-        <label for="product_name">分類名稱</label>
+        <label for="productName">分類名稱</label>
         <input class="form-control" id="product_type_name" placeholder="查詢分類名稱" value="">
     </div>
     <div class="form-group">
@@ -127,8 +128,8 @@
         <input class="form-control" id="customize_id" placeholder="查詢產品代碼" value="">
     </div>
     <div class="form-group">
-        <label for="product_name">產品名稱</label>
-        <input class="form-control" id="product_name" placeholder="查詢產品名稱" value="">
+        <label for="productName">產品名稱</label>
+        <input class="form-control" id="productName" placeholder="查詢產品名稱" value="">
     </div>
     <button type="button" class="btn btn-primary" onclick="doQuery()">送出</button>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">新增</button>
@@ -157,7 +158,7 @@
     $(document).ready(function ($) {
         $('#imgModal').on('shown.bs.modal', function (e) {
             var $modal = $(this);
-            var imgUrl = $(e.relatedTarget).data('img_url');
+            var imgUrl = $(e.relatedTarget).attr('imgUrl');
 
             $modal.find('#imgBig').attr("src", imgUrl);
 
@@ -169,17 +170,24 @@
 
 
 
-        $('#editModal').on('shown.bs.modal', function (e) {
+        $('#updateModal').on('shown.bs.modal', function (e) {
+           
+
+            
+
             var $modal = $(this);
             var id = e.relatedTarget.id;
-            var product_customize_id = $(e.relatedTarget).data('product_customize_id');
-            var product_name = $(e.relatedTarget).data('product_name');            
-            var product_unit_name = $(e.relatedTarget).data('product_unit_name');
+            var productCustomizeID = $(e.relatedTarget).attr('productCustomizeID');
+            var productName = $(e.relatedTarget).attr('productName');            
+            var productUnitName = $(e.relatedTarget).attr('productUnitName');
+            var productTypeID = $(e.relatedTarget).attr('productTypeID');
 
 
-            $modal.find('#productCustomizeID').val(product_customize_id);
-            $modal.find('#productName').val(product_name);
-            $modal.find('#productUnitName').val(product_unit_name);
+            $modal.find('#updateProductCustomizeID').val(productCustomizeID);
+            $modal.find('#productTypeForUpdate').val(productTypeID);
+            $modal.find('#productCustomizeID').val(productCustomizeID);
+            $modal.find('#productName').val(productName);
+            $modal.find('#productUnitName').val(productUnitName);
 
 
         })
@@ -187,14 +195,14 @@
         $('#deleteModal').on('shown.bs.modal', function (e) {
             var $modal = $(this);
             var id = e.relatedTarget.id;
-            var product_customize_id = $(e.relatedTarget).data('product_customize_id');
-            var product_name = $(e.relatedTarget).data('product_name');            
-            var product_unit_name = $(e.relatedTarget).data('product_unit_name');
+            var productCustomizeID = $(e.relatedTarget).attr('productCustomizeID');
+            var productName = $(e.relatedTarget).attr('productName');            
+            var productUnitName = $(e.relatedTarget).attr('productUnitName');
 
-
-            $modal.find('#productCustomizeID').html(product_customize_id);
-            $modal.find('#productName').html(product_name);            
-            $modal.find('#productUnitName').html(product_unit_name);
+            $modal.find('#deleteProductCustomizeID').val(productCustomizeID);
+            $modal.find('#productCustomizeID').html(productCustomizeID);
+            $modal.find('#productName').html(productName);            
+            $modal.find('#productUnitName').html(productUnitName);
 
         })
 
@@ -203,8 +211,7 @@
 
 </script>
 
-
-@using (Html.BeginForm("EditCustomer", "Global_Customer"))
+@using (Html.BeginForm("CreateProduct", "Product"))
 {
     @Html.AntiForgeryToken()
 
@@ -212,7 +219,73 @@
     <div class="container">
 
 
-        <div class="modal fade" id="editModal" role="dialog">
+        <div class="modal fade" id="createModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">新增資料</h4>
+                    </div>
+                    <div class="modal-body">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                分類
+                            </dt>
+                            <dd>
+                                <select id="productTypeForCreate" name="productTypeID"  class="form-control"></select>
+
+                            </dd>
+                            <dt>
+                                代碼
+                            </dt>
+                            <dd>                                
+                                @Html.TextBox("productCustomizeID", "", new { @class = "form-control", placeholder = "代碼" } )
+                            </dd>
+                            <dt>
+                                名稱
+                            </dt>
+
+                            <dd>
+                                @Html.TextBox("productName", "", new { @class = "form-control", placeholder = "名稱" })
+                            </dd>
+
+                            <dt>
+                                單位
+                            </dt>
+
+                            <dd>
+                                @Html.TextBox("productUnitName", "", new { @class = "form-control", placeholder = "單位" })
+
+                            </dd>
+
+
+                        </dl>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-default">儲存</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+}
+
+
+@using (Html.BeginForm("UpdateProduct", "Product"))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="container">
+
+
+        <div class="modal fade" id="updateModal" role="dialog">
             <div class="modal-dialog">
 
                 <!-- Modal content-->
@@ -223,19 +296,26 @@
                     </div>
                     <div class="modal-body">
                         <dl class="dl-horizontal">
+
+                            <dt>
+                                分類
+                            </dt>
+                            <dd>
+                                <select id="productTypeForUpdate" name="productTypeID" class="form-control"></select>
+                            </dd>
                             <dt>
                                 代碼
                             </dt>
                             <dd>
-                                <input id="hid_product_customize_id" name="product_customize_id" type="hidden" />
-                                @Html.TextBox("productCustomizeID", "", new { placeholder = "代碼" })
+                                <input id="updateProductCustomizeID" name="updateProductCustomizeID" type="hidden" value=""/>
+                                @Html.TextBox("productCustomizeID", "", new { @class = "form-control", placeholder = "代碼" })
                             </dd>
                             <dt>
                                 名稱
                             </dt>
 
                             <dd>
-                                @Html.TextBox("productName", "", new { placeholder = "名稱" })
+                                @Html.TextBox("productName", "", new { @class = "form-control", placeholder = "名稱" })
                             </dd>
 
                             <dt>
@@ -243,8 +323,8 @@
                             </dt>
 
                             <dd>
-                                @Html.TextBox("productUnitName", "", new { placeholder = "單位" })
-                                @*<span id="product_unit_name"></span>*@
+                                @Html.TextBox("productUnitName", "", new { @class = "form-control", placeholder = "單位" })
+                                @*<span id="productUnitName"></span>*@
 
                             </dd>
 
@@ -284,7 +364,7 @@
 
 </div>
 
-@using (Html.BeginForm("DeleteCustomer", "Global_Customer"))
+@using (Html.BeginForm("DeleteProduct", "Product"))
 {
     @Html.AntiForgeryToken()
 
@@ -299,7 +379,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">刪除購物車資料</h4>
+                        <h4 class="modal-title">刪除資料</h4>
                     </div>
                     <div class="modal-body">
                         <dl class="dl-horizontal">
@@ -307,6 +387,7 @@
                                 代碼
                             </dt>
                             <dd>
+                                <input id="deleteProductCustomizeID" name="deleteProductCustomizeID" type="hidden" value="" />
                                 <span id="productCustomizeID"></span>
                             </dd>
                             <dt>
@@ -336,3 +417,21 @@
 
     </div>
 }
+
+<script>
+    function loadProductType($select)
+    {
+        $.getJSON("http://220.130.10.50:6868/api/webapi/getProductType", function (data) {
+            $select.find('option').remove();
+            $.each(data, function (key, value) {
+                $select.append('<option value=' + value.ProductTypeID + '>' + value.ProductTypeName + '</option>');
+            });
+        });
+    }
+    loadProductType($('#productTypeForUpdate'));
+    loadProductType($('#productTypeForCreate'));
+</script>
+
+
+
+
