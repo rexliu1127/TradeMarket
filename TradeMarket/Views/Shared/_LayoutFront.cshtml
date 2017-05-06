@@ -84,7 +84,7 @@
                 exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
                 document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
             }
-            function getCookie(name)   
+             function getCookie(name)   
             {
                 var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
                 if (arr != null) return unescape(arr[2]); return null;
@@ -117,9 +117,35 @@
         </div>
     </div>
 
+    <script type="text/javascript">
+             $(function () {
+                 $.ajax({
+                     url: 'http://220.130.10.50:6868/api/webapi/getProductType',
+                     type: 'GET',
+                     dataType: 'JSON',
+                     //data: obj,
+                     success: function (result) {
+                         var $ul = $('#catalog');
+                         try {
+                             $.each(result, function (i, pt) {
+                                 $ul.append('<li><a href="/Mart/Product?productTypeName=' + pt.ProductTypeName + '">' + pt.ProductTypeName + '</a></li>');
+                             });
+                             console.log(result);
+                         }
+                         catch (err) {
+                             alert('Get product type occur error:' + err);
+                         }
+                     },
+                     complete: function () {
+
+                     }
+                 });
+             });
+
+    </script>
+
+    @*
     <script type="text/jsx">
-
-
 
         var listOfProduct = [{customize_id:1,product_name:"香蕉",price:1,unit_name:"PCS"},
         {customize_id:2,product_name:"芭樂",price:1,unit_name:"PCS"},
@@ -130,7 +156,7 @@
         console.log(listOfProduct);
 
         fetch('http://220.130.10.50:6868/api/webapi/getProductType', {
-        method: 'get'
+
         }).then(function(response) {
         return response.json();
         }).then(function(returnObj) {
@@ -138,6 +164,7 @@
         listOfProduct = returnObj;
         class CatalogsMenu extends React.Component {
         render() {
+
         return (
         <ul id="ul_catalogs" className="nav nav-pills nav-stacked">
             {listOfProduct.map((result, index) => {
@@ -161,13 +188,16 @@
 
 
     </script>
-
+    *@
     @*<div class="container-fluid body-content">*@
     <div class=container body-content">
         <div class="row">
             <div class="col-md-2 column margintop20">
                 <div id="div_catalogs">
+                    <ul id="catalog" class="nav nav-pills nav-stacked">
 
+
+                    </ul>
                 </div>                
             </div>
             <div class="col-md-8 column ui-sortable">
