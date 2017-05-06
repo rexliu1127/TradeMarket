@@ -12,6 +12,7 @@ namespace LibraryTradeMarket
         public string ProductCustomizeID { get; set; }
         public string ProductName { get; set; }
         public string ProductUnitName { get; set; }
+        public string ProductTypeID { get; set; }
         public string ProductTypeName { get; set; }
 
         public ProductViewModel()
@@ -20,6 +21,7 @@ namespace LibraryTradeMarket
             ProductCustomizeID = "";
             ProductName = "";
             ProductUnitName = "";
+            ProductTypeID = "";
             ProductTypeName = "";
         }
     }

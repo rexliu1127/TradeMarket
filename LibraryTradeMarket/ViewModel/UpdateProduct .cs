@@ -10,23 +10,24 @@ namespace LibraryTradeMarket
     {
         
 
-        private string updateCustomizeID;
+        private string updateProductCustomizeID;
         private string departmentID;
         private string productTypeID;
         private string customizeID;
         private string productName;
+        private string productUnitName;
         private string updateMemberID;
 
-        public string UpdateCustomizeID
+        public string UpdateProductCustomizeID
         {
             get
             {
-                return updateCustomizeID;
+                return updateProductCustomizeID;
             }
 
             set
             {
-                updateCustomizeID = value;
+                updateProductCustomizeID = value;
             }
         }
 
@@ -66,8 +67,9 @@ namespace LibraryTradeMarket
             }
         }
 
-        public string CustomizeID { get => customizeID; set => customizeID = value; }
+        public string ProductCustomizeID { get => customizeID; set => customizeID = value; }
         public string ProductName { get => productName; set => productName = value; }
+        public string ProductUnitName { get => productUnitName; set => productUnitName = value; }
 
         public string UpdateMemberID
         {

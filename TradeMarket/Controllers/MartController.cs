@@ -9,6 +9,8 @@ using LibraryTradeMarket;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
+
+
 namespace TradeMarket.Views.Mart
 {
     public class MartController : Controller
@@ -34,7 +36,7 @@ namespace TradeMarket.Views.Mart
         public async Task<List<ProductViewModel>> getProductByType(string productType)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://220.130.10.50:6868");
+            client.BaseAddress = new Uri(Properties.Settings.Default.ApiHost);
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("productType", productType),
@@ -63,7 +65,7 @@ namespace TradeMarket.Views.Mart
             string unitName)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://220.130.10.50:6868");
+            client.BaseAddress = new Uri(Properties.Settings.Default.ApiHost);
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("tempOrderID", tempOrderID),

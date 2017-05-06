@@ -49,7 +49,7 @@ namespace TradeMarket.Controllers
         private async void PostLosgin(string account,string password)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://220.130.10.50:6868");
+            client.BaseAddress = new Uri(Properties.Settings.Default.ApiHost);
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("account", account),
@@ -69,7 +69,7 @@ namespace TradeMarket.Controllers
         public async Task<LoginApiResponseData> getLoginValidate(string account,string password)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://220.130.10.50:6868");
+            client.BaseAddress = new Uri(Properties.Settings.Default.ApiHost);
             var content = new FormUrlEncodedContent(new[]
             {
                 new KeyValuePair<string, string>("account", account),

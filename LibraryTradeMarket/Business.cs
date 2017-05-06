@@ -156,7 +156,9 @@ namespace LibraryTradeMarket
                 using (var db = new TradeMarketEntities())
                 {
                     var product_types = from t in db.product_type
-                                        select new ProductTypeViewModel { ProductTypeName = t.product_type_name };
+                                        select new ProductTypeViewModel {
+                                            ProductTypeID = t.id.ToString(),
+                                            ProductTypeName = t.product_type_name };
 
 
 
@@ -198,6 +200,7 @@ namespace LibraryTradeMarket
                                        ProductCustomizeID =p.product_customize_id,
                                        ProductName = p.product_name,
                                        ProductUnitName = p.display_unit,
+                                       ProductTypeID = p.product_type_id.ToString(),
                                        ProductTypeName = t.product_type_name
                                    };
 
@@ -242,6 +245,7 @@ namespace LibraryTradeMarket
                                        ProductCustomizeID = p.product_customize_id,
                                        ProductName = p.product_name,
                                        ProductUnitName = p.display_unit,
+                                       ProductTypeID = p.product_type_id.ToString(),
                                        ProductTypeName = t.product_type_name
                                    };
 
@@ -434,6 +438,7 @@ namespace LibraryTradeMarket
                                        ProductCustomizeID = p.product_customize_id,
                                        ProductName = p.product_name,
                                        ProductUnitName = p.display_unit,
+                                       ProductTypeID = p.product_type_id.ToString(),
                                        ProductTypeName = t.product_type_name
                                    };
                     //ere p.product_customize_id == customizeID
@@ -477,13 +482,14 @@ namespace LibraryTradeMarket
 
                     var newProducts = from table in query
                                       select new ProductViewModel
-                                   {
-                                       DepartmentID = table.DepartmentID,
-                                       ProductCustomizeID = table.ProductCustomizeID,
-                                       ProductName = table.ProductName,
-                                       ProductUnitName = table.ProductUnitName,
-                                       ProductTypeName = table.ProductTypeName
-                                   };
+                                      {
+                                        DepartmentID = table.DepartmentID,
+                                        ProductCustomizeID = table.ProductCustomizeID,
+                                        ProductName = table.ProductName,
+                                        ProductUnitName = table.ProductUnitName,
+                                        ProductTypeID = table.ProductTypeID,
+                                        ProductTypeName = table.ProductTypeName
+                                        };
 
                     //var product = products
                     //    .FirstOrDefault();
@@ -651,7 +657,7 @@ namespace LibraryTradeMarket
                 newProduct.product_type_id = Utility.getIntOrDefault(createProduct.ProductTypeID, 1);                
                 newProduct.update_date = DateTime.Now;
                 newProduct.department_id = Utility.getIntOrDefault(createProduct.DepartmentID, 1);
-                newProduct.product_customize_id = createProduct.CustomizeID;
+                newProduct.product_customize_id = createProduct.ProductCustomizeID;
                 newProduct.product_name = createProduct.ProductName;
                 newProduct.update_member_id = Utility.getIntOrDefault(createProduct.UpdateMemberID, 1);
                 db.Entry(newProduct).State = EntityState.Added;
@@ -701,14 +707,14 @@ namespace LibraryTradeMarket
                     }
                 }
 
-                if (String.IsNullOrEmpty(createProduct.CustomizeID))
+                if (String.IsNullOrEmpty(createProduct.ProductCustomizeID))
                 {
                     bm.Message += "請輸入產品代碼\n";
                 }
                 else
                 {
                     TradeMarketEntities db = new TradeMarketEntities();
-                    int count = db.product.Where(o=>o.product_customize_id == createProduct.CustomizeID).Count();
+                    int count = db.product.Where(o=>o.product_customize_id == createProduct.ProductCustomizeID).Count();
                     if (count > 0)
                     {
                         bm.Message += "產品代碼重覆\n";
@@ -764,7 +770,7 @@ namespace LibraryTradeMarket
                 TradeMarketEntities db = new TradeMarketEntities();
 
                 var products = from a in db.product
-                               where a.product_customize_id == updateProduct.UpdateCustomizeID
+                               where a.product_customize_id == updateProduct.UpdateProductCustomizeID
                                select a;
 
                 var product = products.FirstOrDefault();
@@ -773,9 +779,11 @@ namespace LibraryTradeMarket
                 {
                     //product newProduct = db.product.FirstOrDefault(o => o.product_customize_id == updateProduct.UpdateCustomizeID);
                     product.update_date = DateTime.Now;
-                    product.product_customize_id = updateProduct.CustomizeID;
+                    product.product_type_id = Utility.getIntOrDefault(updateProduct.ProductTypeID, 1);
+                    product.product_customize_id = updateProduct.ProductCustomizeID;
                     product.product_name = updateProduct.ProductName;
-                    product.update_member_id = Utility.getIntOrDefault(updateProduct.UpdateMemberID, 1);
+                    product.update_member_id = Utility.getIntOrDefault(updateProduct.UpdateMemberID, 1);                    
+                    product.display_unit = updateProduct.ProductUnitName;
                     db.Entry(product).State = EntityState.Modified;
                     db.SaveChanges();
 
@@ -807,7 +815,12 @@ namespace LibraryTradeMarket
                     bm.Message += "請輸入部門編號\n";
                 }
 
-                if (String.IsNullOrEmpty(updateProduct.UpdateCustomizeID))
+                if (String.IsNullOrEmpty(updateProduct.ProductCustomizeID))
+                {
+                    bm.Message += "請輸入產品代碼\n";
+                }
+
+                if (String.IsNullOrEmpty(updateProduct.UpdateProductCustomizeID))
                 {
                     bm.Message += "請輸入欲更新產品的代碼\n";
                 }
@@ -817,11 +830,26 @@ namespace LibraryTradeMarket
                     //var count = (from t in db.product
                     //             where t.product_customize_id == updateProduct.UpdateCustomizeID
                     //             select t).Count();
-                    int count = db.product.Where(o => o.product_customize_id == updateProduct.CustomizeID).Count();
-                    if (count == 0)
+
+                    if (updateProduct.ProductCustomizeID != updateProduct.UpdateProductCustomizeID)
                     {
-                        bm.Message += "查無欲更新產品的代碼\n";
+                        int countRepeat = db.product.Where(o => o.product_customize_id == updateProduct.ProductCustomizeID).Count();
+                        if (countRepeat > 0)
+                        {
+                            bm.Message += "產品代碼重覆:" + updateProduct.UpdateProductCustomizeID + ","+ updateProduct.ProductCustomizeID + "\n";
+                        }
                     }
+                    else
+                    {
+                        int count = db.product.Where(o => o.product_customize_id == updateProduct.ProductCustomizeID).Count();
+                        if (count == 0)
+                        {
+                            bm.Message += "查無欲更新產品的代碼\n";
+                        }
+                    }
+                    
+
+                    
 
                 }
 
@@ -844,30 +872,30 @@ namespace LibraryTradeMarket
                     }
                 }
 
-                if (String.IsNullOrEmpty(updateProduct.CustomizeID))
-                {
-                    bm.Message += "請輸入產品代碼\n";
-                }
-                else
-                {
-                    TradeMarketEntities db = new TradeMarketEntities();
-                    //var count = (from t in db.product
-                    //             where t.product_customize_id == updateProduct.CustomizeID
-                    //             select t).Count();
+                //if (String.IsNullOrEmpty(updateProduct.ProductCustomizeID))
+                //{
+                //    bm.Message += "請輸入產品代碼\n";
+                //}
+                //else
+                //{
+                //    TradeMarketEntities db = new TradeMarketEntities();
+                //    //var count = (from t in db.product
+                //    //             where t.product_customize_id == updateProduct.CustomizeID
+                //    //             select t).Count();
 
 
-                    //if (count > 0)
-                    //{
-                    //    bm.Message += "產品代碼重覆\n";
-                    //}
+                //    //if (count > 0)
+                //    //{
+                //    //    bm.Message += "產品代碼重覆\n";
+                //    //}
 
-                    int count = db.product.Where(o => o.product_customize_id == updateProduct.CustomizeID).Count();
-                    if (count > 0)
-                    {
-                        bm.Message += "產品代碼重覆\n";
-                    }
+                //    int count = db.product.Where(o => o.product_customize_id == updateProduct.ProductCustomizeID).Count();
+                //    if (count > 0)
+                //    {
+                //        bm.Message += "產品代碼重覆\n";
+                //    }
 
-                }
+                //}
 
                 if (String.IsNullOrEmpty(updateProduct.ProductName))
                 {
@@ -900,7 +928,7 @@ namespace LibraryTradeMarket
             return bm;
         }
 
-        public BooleanMessage isDeleteProduct(string deleteCustomizeID)
+        public BooleanMessage isDeleteProduct(DeleteProduct deleteProductObject)
         {
 
             BooleanMessage bm = new BooleanMessage();
@@ -913,14 +941,14 @@ namespace LibraryTradeMarket
                 TradeMarketEntities db = new TradeMarketEntities();
 
                 var products = from a in db.product
-                               where a.product_customize_id == deleteCustomizeID
+                               where a.product_customize_id == deleteProductObject.DeleteProductCustomizeID
                                select a;
 
                 var product = products.FirstOrDefault();
 
                 if (product != null)
                 {
-                    product deleteProduct = db.product.FirstOrDefault(o=>o.product_customize_id==deleteCustomizeID);
+                    product deleteProduct = db.product.FirstOrDefault(o=>o.product_customize_id== deleteProductObject.DeleteProductCustomizeID);
                     db.product.Remove(deleteProduct);
                     db.SaveChanges();
 
