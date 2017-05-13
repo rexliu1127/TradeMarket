@@ -56,7 +56,10 @@ namespace WpfApp1
 
             //bm = b.isUpdateProduct("0001", "00011", "特級香蕉", "");
 
-            bm = b.isDeleteProductType("6");
+            DeleteProductType dpt = new DeleteProductType();
+            dpt.DeleteProductTypeID = "6";
+
+            bm = b.isDeleteProductType(dpt);
 
 
 
@@ -83,7 +86,10 @@ namespace WpfApp1
 
             //bm = b.isUpdateProduct("0001", "00011", "特級香蕉", "");
 
-            bm = b.isDeleteProduct("000111");
+            DeleteProduct del = new DeleteProduct();
+            del.DeleteProductCustomizeID = "000111";
+
+            bm = b.isDeleteProduct(del);
 
             ProductViewModel p = new ProductViewModel();
             p = b.getOneProduct("0001");

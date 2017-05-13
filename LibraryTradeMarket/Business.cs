@@ -148,6 +148,62 @@ namespace LibraryTradeMarket
 
         }
 
+        public IntMessage CreateTempCart(CreateTempCart tempCart)
+        {
+            IntMessage bm = new IntMessage();
+            try
+            {
+                using (var db = new TradeMarketEntities())
+                {
+                    temp_cart newTempCart = new temp_cart();
+
+                    newTempCart.temp_order_id = tempCart.TempOrderID;
+                    newTempCart.product_customize_id = tempCart.ProductCustomizeID;
+                    newTempCart.product_name = tempCart.ProductName;
+                    newTempCart.quantity = Utility.getIntOrDefault(tempCart.Quantity, 1);
+                    newTempCart.price = Utility.getIntOrDefault(tempCart.Price, 0);
+                    newTempCart.unit_name = tempCart.ProductUnitName;
+                    newTempCart.update_date = DateTime.Now;
+                    //memo備用欄位先設為空
+
+                    newTempCart.memo = "";
+
+                    db.Entry(newTempCart).State = EntityState.Added;
+
+                    db.SaveChanges();
+
+
+                    var carts = from c in db.temp_cart
+                                where c.temp_order_id == tempCart.TempOrderID
+                                select c.temp_order_id;
+
+                    bm.Result = carts.Count();
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                addErrorLog("", "CreateTempCart", ex.Message);
+                bm.Message = ex.Message;
+                //TradeMarketEntities db = new TradeMarketEntities();
+                //error_log newErrorLog = new error_log();
+                //newErrorLog.action = "isLogin";
+                //newErrorLog.contents = "";
+                //newErrorLog.update_date = DateTime.Now;
+                //newErrorLog.controller = "";
+                //newErrorLog.contents = ex.Message;
+                //db.Entry(newErrorLog).State = EntityState.Added;
+                //db.SaveChanges();                
+
+            }
+
+            return bm;
+
+        }
+
+
+
         public List<ProductTypeViewModel> getProductType()
         {
             List<ProductTypeViewModel> list = new List<ProductTypeViewModel>();
@@ -928,27 +984,24 @@ namespace LibraryTradeMarket
             return bm;
         }
 
-        public BooleanMessage isDeleteProduct(DeleteProduct deleteProductObject)
+        public BooleanMessage isDeleteProduct(DeleteProduct deleteProductObj)
         {
 
             BooleanMessage bm = new BooleanMessage();
 
             try
             {
-
-                //Check Before Delete
-
                 TradeMarketEntities db = new TradeMarketEntities();
 
                 var products = from a in db.product
-                               where a.product_customize_id == deleteProductObject.DeleteProductCustomizeID
+                               where a.product_customize_id == deleteProductObj.DeleteProductCustomizeID
                                select a;
 
                 var product = products.FirstOrDefault();
 
                 if (product != null)
                 {
-                    product deleteProduct = db.product.FirstOrDefault(o=>o.product_customize_id== deleteProductObject.DeleteProductCustomizeID);
+                    product deleteProduct = db.product.FirstOrDefault(o=>o.product_customize_id== deleteProductObj.DeleteProductCustomizeID);
                     db.product.Remove(deleteProduct);
                     db.SaveChanges();
 
@@ -1160,20 +1213,17 @@ namespace LibraryTradeMarket
             return bm;
         }
 
-        public BooleanMessage isDeleteProductType(string deleteID)
+        public BooleanMessage isDeleteProductType(DeleteProductType deleteProductTypeObj)
         {
 
             BooleanMessage bm = new BooleanMessage();
 
             try
             {
-
-                //Check Before Delete
-
                 TradeMarketEntities db = new TradeMarketEntities();
 
                 int newDeleteID = 0;
-                newDeleteID = Utility.getIntOrDefault(deleteID, 0);
+                newDeleteID = Utility.getIntOrDefault(deleteProductTypeObj.DeleteProductTypeID, 0);
 
                 var products = from a in db.product_type
                                where a.id == newDeleteID

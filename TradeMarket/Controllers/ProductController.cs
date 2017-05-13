@@ -183,18 +183,9 @@ namespace TradeMarket.Controllers
             try
             {
 
-
-
-
                 DeleteProduct deleteProduct = new DeleteProduct();
-
-
                 deleteProduct.DeleteProductCustomizeID = deleteProductCustomizeID;
-
                 bm = await isDeleteProduct(deleteProduct);
-
-
-
 
             }
             catch (Exception ex)
