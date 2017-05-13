@@ -601,5 +601,100 @@ namespace ApiTradeMarket.Controllers
 
         }
 
+
+        [HttpPost]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage isCreateProductType(CreateProductType productType)
+        {
+            //string result = "";
+            BooleanMessage bm = new BooleanMessage();
+
+            Business business = new Business();
+
+            try
+            {
+
+                bm = business.isCreateProductType(productType);
+
+            }
+            catch (Exception ex)
+            {
+                business.addErrorLog("WebApi", "isCreateProductType", ex.Message);
+                //Utility.ErrorMessageToLogFile(ex);
+                //throw;
+            }
+
+            string result = JsonConvert.SerializeObject(bm);
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(result)
+            };
+
+        }
+
+        [HttpPost]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage isUpdateProductType(UpdateProductType productType)
+        {
+            //string result = "";
+            BooleanMessage bm = new BooleanMessage();
+
+            Business business = new Business();
+
+            try
+            {
+
+                bm = business.isUpdateProductType(productType);
+
+            }
+            catch (Exception ex)
+            {
+                business.addErrorLog("WebApi", "isUpdateProductType", ex.Message);
+                //Utility.ErrorMessageToLogFile(ex);
+                //throw;
+            }
+
+            string result = JsonConvert.SerializeObject(bm);
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(result)
+            };
+
+        }
+
+        [HttpPost]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage isDeleteProductType(DeleteProductType deleteProductType)
+        {
+            //string result = "";
+            BooleanMessage bm = new BooleanMessage();
+
+            Business business = new Business();
+
+            try
+            {
+
+                bm = business.isDeleteProductType(deleteProductType);
+
+            }
+            catch (Exception ex)
+            {
+                business.addErrorLog("WebApi", "isDeleteProductType", ex.Message);
+                //Utility.ErrorMessageToLogFile(ex);
+                //throw;
+            }
+
+            string result = JsonConvert.SerializeObject(bm);
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(result)
+            };
+
+        }
+
+
     }
 }
