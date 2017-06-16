@@ -16,7 +16,18 @@ namespace LibraryTradeMarket
         private string customizeID;
         private string productName;
         private string productUnitName;
+        private string imageUrl;
         private string updateMemberID;
+
+        public UpdateProduct()
+        {            
+            customizeID="";
+            productName="";
+            productUnitName="";
+            imageUrl="";
+            
+    }
+
 
         public string UpdateProductCustomizeID
         {
@@ -70,6 +81,7 @@ namespace LibraryTradeMarket
         public string ProductCustomizeID { get => customizeID; set => customizeID = value; }
         public string ProductName { get => productName; set => productName = value; }
         public string ProductUnitName { get => productUnitName; set => productUnitName = value; }
+        public string ImageUrl { get => imageUrl; set => imageUrl = value; }
 
         public string UpdateMemberID
         {

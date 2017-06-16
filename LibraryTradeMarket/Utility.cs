@@ -263,5 +263,23 @@ namespace LibraryTradeMarket
             return resultInt;
         }
 
+        public static string getSha256(string input)
+        {
+            string result = "";
+            try
+            {
+                SHA256 sha256 = new SHA256CryptoServiceProvider();
+                result = Convert.ToBase64String(sha256.ComputeHash(Encoding.Default.GetBytes(input)));
+                
+            }
+            catch (Exception ex)
+            {
+
+                
+            }
+            return result;
+
+        }
+
     }
 }

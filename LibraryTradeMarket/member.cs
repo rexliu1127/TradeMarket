@@ -16,7 +16,7 @@ namespace LibraryTradeMarket
     {
         public int id { get; set; }
         public int role { get; set; }
-        public int type_id { get; set; }
+        public int member_type_id { get; set; }
         public string member_name { get; set; }
         public string account { get; set; }
         public string password { get; set; }
@@ -31,6 +31,6 @@ namespace LibraryTradeMarket
         public string contact_address_o { get; set; }
         public string contact_address_zipno_o { get; set; }
         public System.DateTime update_date { get; set; }
-        public string update_user_name { get; set; }
+        public int update_member_id { get; set; }
     }
 }

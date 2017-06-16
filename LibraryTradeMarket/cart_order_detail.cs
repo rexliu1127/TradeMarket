@@ -15,11 +15,13 @@ namespace LibraryTradeMarket
     public partial class cart_order_detail
     {
         public int id { get; set; }
-        public string order_id { get; set; }
+        public int order_id { get; set; }
         public int state { get; set; }
         public string product_customize_id { get; set; }
         public string product_name { get; set; }
         public decimal quantity { get; set; }
+        public string actual_quantity_memo { get; set; }
+        public decimal actual_quantity { get; set; }
         public decimal price { get; set; }
         public string unit_name { get; set; }
         public decimal total { get; set; }

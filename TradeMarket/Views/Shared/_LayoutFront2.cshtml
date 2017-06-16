@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="MobileOptimized" content="320">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=10">
+    <title>奶油市集</title>
+    <link rel="icon" type="~/image/png" href="~/images/favicon.ico">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
+    <link rel="stylesheet" href="~/vendors/AdminLTE-2.3.11/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="~/vendors/AdminLTE-2.3.11/dist/css/skins/skin-red-light.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.css">
+    <link rel="stylesheet" href="~/css/app.min.css?rev=79f1070014f3aa64a3bf7face4d5dc0f"><!--[if (lte IE 9)]><!-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script><!--<![endif]-->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+    <script src="~/vendors/AdminLTE-2.3.11/dist/js/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.5/sweetalert2.min.js"></script><!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+    <script src="~/js/app.js?rev=622555dc407d4f59989934a2c290985f"></script>
+
+    <script src="~/js/jquery.twbsPagination.js" type="text/javascript"></script>
+    <script src="~/js/jquery.query-object.js" type="text/javascript"></script>
+</head>
+<body class="with-background-color layout-top-nav skin-red-light">
+
+    @if (Session["account"] == null)
+    {
+        <script type="text/javascript">
+            alert('請先登入');
+            window.location.replace("@Url.Action("Login", "Home")");
+        </script>
+    }
+    else
+    {
+        <script type="text/javascript">
+            //alert('1234');
+            //alert('@Session["account"].ToString()');
+        </script>
+    }
+
+    @{ 
+        if (Request.Cookies["cartCount"] != null)
+        {
+            var a = Request.Cookies["cartCount"].Value;
+        }
+    }
+    <script>
+            function SetCookie(name, value)
+            {
+                var Days = 30;
+                var exp = new Date();
+                exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+                document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+            }
+             function getCookie(name)   
+            {
+                var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+                if (arr != null) return unescape(arr[2]); return null;
+
+            }
+
+    </script>
+    
+
+    
+
+    <header class="main-header">
+        <div class="navbar navbar-static-top">
+            <div class="container-with-width clear">
+                <div class="navbar-header">
+                    <a class="navbar-brand left" href="./index.html" title="奶油市集" target="_self"><b class="company-name">奶油市集</b></a>
+                    <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbar-collapse"><i class="fa fa-bars"></i></button>
+                </div>
+                <div class="collapse navbar-collapse pull-center" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">商品</a></li>
+                        <li><a href="#">訂單</a></li>
+                        <li><a href="#">帳款</a></li>
+                    </ul>
+                </div>
+                <div class="navbar-custom-menu navbar-nav-right">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown tasks-menu">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-user"></i></a>
+                            <ul class="dropdown-menu">
+                                <li class="header">
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="#">
+                                                <h4>會員中心</h4>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <h4>登出</h4>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a><i class="fa fa-shopping-cart"></i><span class="label label-success">0</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    @RenderBody()
+
+
+
+
+    <script>
+             var sp = $("#spCartCount"); //$("a").find("span"); //$("#d1 > #d2 > div > a", "#spCartCount"); //$("#cart").find('span#spCartCount')
+             var cartCount = getCookie('cartCount');
+             if (cartCount != null) {
+                 sp.html(cartCount);
+             }
+             else {
+                 sp.html('0');
+             }
+
+    </script>
+
+
+
+
+
+    </body>
+
+
+
+
+
+
+</html>
+

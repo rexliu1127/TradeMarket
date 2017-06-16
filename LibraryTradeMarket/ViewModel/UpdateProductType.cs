@@ -11,6 +11,7 @@ namespace LibraryTradeMarket
         
 
         private string updateID;
+        private string superTypeID;
         private string productTypeName;
         
 
@@ -27,9 +28,8 @@ namespace LibraryTradeMarket
             }
         }
 
-
+        public string SuperTypeID { get => superTypeID; set => superTypeID = value; }
         public string ProductTypeName { get => productTypeName; set => productTypeName = value; }
 
-       
     }
 }

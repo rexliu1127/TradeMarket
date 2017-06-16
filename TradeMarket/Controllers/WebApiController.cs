@@ -84,7 +84,7 @@ namespace TradeMarket.Controllers
 
                 List<ProductViewModel> list = new List<ProductViewModel>();
 
-                list = business.getProductByType(productType);
+                list = business.getProductByProductTypeName(productType);
 
                 result = JsonConvert.SerializeObject(list, Formatting.Indented);
 

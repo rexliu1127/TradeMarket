@@ -13,14 +13,22 @@ namespace LibraryTradeMarket
         private string productCustomizeID;
         private string productName;
         private string productUnitName;
+        private string imageUrl;
         private string updateMemberID;
+        
 
         private const string DEFAULT_DEPARTMENT_ID= "1";
 
         public CreateProduct()
         {
-            departmentID = DEFAULT_DEPARTMENT_ID;
-        }
+            departmentID = DEFAULT_DEPARTMENT_ID;            
+            productTypeID="";
+            productCustomizeID="";
+            productName="";
+            productUnitName="";
+            imageUrl="";
+            updateMemberID="";
+    }
 
         public string DepartmentID
         {
@@ -46,6 +54,7 @@ namespace LibraryTradeMarket
         public string ProductCustomizeID { get => productCustomizeID; set => productCustomizeID = value; }
         public string ProductName { get => productName; set => productName = value; }
         public string ProductUnitName { get => productUnitName; set => productUnitName = value; }
+        public string ImageUrl { get => imageUrl; set => imageUrl = value; }
 
         public string UpdateMemberID
         {

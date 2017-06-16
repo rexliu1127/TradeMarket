@@ -141,7 +141,10 @@
 
 </p>
 <div class="pull-right">
-    <button type="button" class="btn btn-warning">確定下單</button>
+
+
+
+    <button type="button" data-toggle="modal"  data-target="#checkOutModal" class="btn btn-warning">確定下單</button>
 </div>
 
 <script>
@@ -232,7 +235,7 @@
 </script>
 
 
-@using (Html.BeginForm("EditCustomer", "Global_Customer"))
+@using (Html.BeginForm("EditTempCart", "Mart"))
 {
     @Html.AntiForgeryToken()
 
@@ -312,7 +315,7 @@
 
 </div>
 
-@using (Html.BeginForm("DeleteCustomer", "Global_Customer"))
+@using (Html.BeginForm("DeleteTempCart", "Mart"))
 {
     @Html.AntiForgeryToken()
 
@@ -365,3 +368,58 @@
 
     </div>
 }
+
+@using (Html.BeginForm("CheckOut", "Mart"))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="container">
+
+
+        <div class="modal fade" id="checkOutModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">結帳購物車資料</h4>
+                    </div>
+                    <div class="modal-body">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                代碼
+                            </dt>
+                            <dd>
+                                <span id="product_customize_id"></span>
+                            </dd>
+                            <dt>
+                                名稱
+                            </dt>
+                            <dd>
+                                <span id="product_name"></span>
+                            </dd>
+                            <dt>
+                                數量
+                            </dt>
+                            <dd>
+                                <span id="quantity"></span>
+                                <span id="product_unit_name"></span>
+                            </dd>
+
+                        </dl>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-default">結帳</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+}
+

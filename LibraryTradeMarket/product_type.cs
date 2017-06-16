@@ -15,6 +15,7 @@ namespace LibraryTradeMarket
     public partial class product_type
     {
         public int id { get; set; }
+        public Nullable<int> super_type_id { get; set; }
         public string product_type_name { get; set; }
     }
 }

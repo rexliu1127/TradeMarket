@@ -33,6 +33,13 @@ namespace TradeMarket.Views.Mart
             return View();
         }
 
+
+        // GET: Cart
+        public ActionResult CheckOut()
+        {
+            return View();
+        }
+
         public async Task<List<ProductViewModel>> getProductByType(string productType)
         {
             HttpClient client = new HttpClient();

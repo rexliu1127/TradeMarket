@@ -8,7 +8,7 @@ using LibraryTradeMarket;
 using Newtonsoft.Json;
 using System.Web.Http.Cors;
 using System.Data;
-
+using System.Linq.Expressions;
 
 namespace ApiTradeMarket.Controllers
 {
@@ -175,6 +175,68 @@ namespace ApiTradeMarket.Controllers
 
         [HttpGet]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage getProductSuperType()
+        {
+            string result = "";
+            Business business = new Business();
+            try
+            {
+
+                List<ProductTypeViewModel> list = new List<ProductTypeViewModel>();
+
+                list = business.getProductSuperType();
+
+                result = JsonConvert.SerializeObject(list, Formatting.Indented);
+
+            }
+            catch (Exception ex)
+            {
+                business.addErrorLog("WebApi", "getProductType", ex.Message);
+                //Utility.ErrorMessageToLogFile(ex);
+                //throw;
+            }
+
+
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(result)
+            };
+
+        }
+
+        //[HttpGet]
+        //[EnableCors(origins: "*", headers: "*", methods: "*")]
+        //public HttpResponseMessage getProductChildType()
+        //{
+        //    string result = "";
+        //    Business business = new Business();
+        //    try
+        //    {
+
+        //        List<ProductTypeViewModel> list = new List<ProductTypeViewModel>();
+
+        //        list = business.getProductChildType();
+
+        //        result = JsonConvert.SerializeObject(list, Formatting.Indented);
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        business.addErrorLog("WebApi", "getProductChildType", ex.Message);
+        //    }
+
+
+
+        //    return new HttpResponseMessage()
+        //    {
+        //        Content = new StringContent(result)
+        //    };
+
+        //}
+
+        [HttpGet]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public HttpResponseMessage getProductByProductTypeName(string productTypeName)
         {
             string result = "";
@@ -184,7 +246,7 @@ namespace ApiTradeMarket.Controllers
 
                 List<ProductViewModel> list = new List<ProductViewModel>();
 
-                list = business.getProductByType(productTypeName);
+                list = business.getProductByProductTypeName(productTypeName);
 
                 result = JsonConvert.SerializeObject(list, Formatting.Indented);
 
@@ -309,7 +371,7 @@ namespace ApiTradeMarket.Controllers
 
                 //List<ProductViewModel> pagedList = new List<ProductViewModel>();
 
-                list = business.getProductByType(productTypeName);
+                list = business.getProductByProductTypeName(productTypeName);
 
                
                 var queryResultPage = list
@@ -452,6 +514,32 @@ namespace ApiTradeMarket.Controllers
 
         [HttpGet]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage getOneMemberShippmentInfo(string memberID)
+        {
+            //ClassApiResponseData response = new ClassApiResponseData();
+            Business business = new Business();
+            MemberShippmentViewModel memberShippmentInfo = new MemberShippmentViewModel();
+            string result = "";
+
+            try
+            {
+                memberShippmentInfo = business.getOneMemberShipmentInfo(memberID);               
+                result = JsonConvert.SerializeObject(memberShippmentInfo, Formatting.Indented);
+
+            }
+            catch (Exception ex)
+            {
+                business.addErrorLog("WebApi", "getOneMember", ex.Message);
+            }
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(result)
+            };
+
+        }
+        [HttpGet]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public HttpResponseMessage getProductCount(int departmentID = 1, string customizeID = "", string productName = "", string productTypeName = "")
         {
             string result = "";
@@ -483,6 +571,7 @@ namespace ApiTradeMarket.Controllers
         }
 
 
+
         [HttpGet]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public HttpResponseMessage getProduct(int departmentID=1, string customizeID = "", string productName = "", string productTypeName="", int resultCountOnly = 0)
@@ -492,7 +581,7 @@ namespace ApiTradeMarket.Controllers
             string result = resultCountOnly != 0 ? "0" : "";
             try
             {
-                response.listOfProduct = business.getProduct(departmentID, customizeID, productName, productTypeName);
+                response.ListOfProduct = business.getProduct(departmentID, customizeID, productName, productTypeName);
                 response.Result = "1";
                 result = JsonConvert.SerializeObject(response, Formatting.Indented);
             }
@@ -507,6 +596,60 @@ namespace ApiTradeMarket.Controllers
             };
 
         }
+
+        [HttpGet]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage getProductPaging(int departmentID = 1, string customizeID = "", string productName = "", string productTypeName = "", string sortColumn = "UpdateDate", string orderBy = "ASC", int currentPage=1, int showCount=10)
+        {
+            Business business = new Business();
+            ProductPagingApiResponseData response = new ProductPagingApiResponseData();
+            string result = "";
+           
+            try
+            {
+                response.Data = business.getProductPaging(departmentID, customizeID, productName, productTypeName,sortColumn, orderBy, currentPage, showCount);
+                response.Result = "1";
+                result = JsonConvert.SerializeObject(response, Formatting.Indented);
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+            }
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(result)
+            };
+
+        }
+
+        [HttpGet]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage getProductTypePaging(string superTypeName = "", string productTypeName = "", string sortColumn = "ProductTypeName", string orderBy = "ASC", int currentPage = 1, int showCount = 10)
+        {
+            Business business = new Business();
+            ProductTypePagingApiResponseData response = new ProductTypePagingApiResponseData();
+            string result = "";
+
+            try
+            {
+                response.Data = business.getProductTypePaging(superTypeName, productTypeName, sortColumn, orderBy, currentPage, showCount);
+                response.Result = "1";
+                result = JsonConvert.SerializeObject(response, Formatting.Indented);
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+            }
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(result)
+            };
+
+        }
+
+
 
         [HttpPost]
         [EnableCors(origins: "*", headers: "*", methods: "*")]
@@ -694,6 +837,201 @@ namespace ApiTradeMarket.Controllers
             };
 
         }
+
+
+        [HttpPost]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage isCreateProductUnit(CreateProductUnit productUnit)
+        {
+            //string result = "";
+            BooleanMessage bm = new BooleanMessage();
+
+            Business business = new Business();
+
+            try
+            {
+
+                bm = business.isCreateProductUnit(productUnit);
+
+            }
+            catch (Exception ex)
+            {
+                business.addErrorLog("WebApi", "isCreateProductUnit", ex.Message);
+                //Utility.ErrorMessageToLogFile(ex);
+                //throw;
+            }
+
+            string result = JsonConvert.SerializeObject(bm);
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(result)
+            };
+
+        }
+
+        [HttpPost]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage isUpdateProductUnit(UpdateProductUnit productUnit)
+        {
+            //string result = "";
+            BooleanMessage bm = new BooleanMessage();
+
+            Business business = new Business();
+
+            try
+            {
+
+                bm = business.isUpdateProductUnit(productUnit);
+
+            }
+            catch (Exception ex)
+            {
+                business.addErrorLog("WebApi", "isUpdateProductUnit", ex.Message);
+                //Utility.ErrorMessageToLogFile(ex);
+                //throw;
+            }
+
+            string result = JsonConvert.SerializeObject(bm);
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(result)
+            };
+
+        }
+
+        [HttpPost]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage isDeleteProductUnit(DeleteProductUnit deleteProductUnit)
+        {
+            //string result = "";
+            BooleanMessage bm = new BooleanMessage();
+
+            Business business = new Business();
+
+            try
+            {
+
+                bm = business.isDeleteProductUnit(deleteProductUnit);
+
+            }
+            catch (Exception ex)
+            {
+                business.addErrorLog("WebApi", "isDeleteProductUnit", ex.Message);
+                //Utility.ErrorMessageToLogFile(ex);
+                //throw;
+            }
+
+            string result = JsonConvert.SerializeObject(bm);
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(result)
+            };
+
+        }
+
+        [HttpPost]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage isCreateProductOnSales(CreateProductOnSales productOnSales)
+        {
+            //string result = "";
+            BooleanMessage bm = new BooleanMessage();
+
+            Business business = new Business();
+
+            try
+            {
+
+                bm = business.isCreateProductOnSales(productOnSales);
+
+            }
+            catch (Exception ex)
+            {
+                business.addErrorLog("WebApi", "isCreateProductOnSales", ex.Message);
+                //Utility.ErrorMessageToLogFile(ex);
+                //throw;
+            }
+
+            string result = JsonConvert.SerializeObject(bm);
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(result)
+            };
+
+        }
+
+        [HttpPost]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage isDeleteProductOnSales(DeleteProductOnSales productOnSales)
+        {
+            //string result = "";
+            BooleanMessage bm = new BooleanMessage();
+
+            Business business = new Business();
+
+            try
+            {
+
+                bm = business.isDeleteProductOnSales(productOnSales);
+
+            }
+            catch (Exception ex)
+            {
+                business.addErrorLog("WebApi", "isCreateProductOnSales", ex.Message);
+                //Utility.ErrorMessageToLogFile(ex);
+                //throw;
+            }
+
+            string result = JsonConvert.SerializeObject(bm);
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(result)
+            };
+
+        }
+
+
+        [HttpGet]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
+        public HttpResponseMessage getSecretCode(string input,string token)
+        {
+            string result = "";
+            Business business = new Business();
+            try
+            {
+               
+
+                string strReturn = "";
+
+                if (token == "`1qazxsw2")
+                {
+                    strReturn = Utility.getSecretCode(input);
+                }
+
+                result = JsonConvert.SerializeObject(strReturn, Formatting.Indented);
+
+            }
+            catch (Exception ex)
+            {
+                business.addErrorLog("WebApi", "getSecretCode", ex.Message);
+                //Utility.ErrorMessageToLogFile(ex);
+                //throw;
+            }
+
+
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(result)
+            };
+
+        }
+
+
 
 
     }

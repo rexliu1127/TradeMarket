@@ -1,8 +1,282 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutFront.cshtml";
+    Layout = "~/Views/Shared/_LayoutFront2.cshtml";
 }
 
-<h2>Mart Index</h2>
+<section class="breadcrumb-wrap">
+    <div class="container-with-width">
+        <ol class="breadcrumb">
+            <li><a href="#"> <i class="fa fa-home"></i>商品首頁</a></li>
+            <li class="active">全部商品</li>
+        </ol>
+    </div>
+</section>
+<div class="products">
+    <div class="container-with-width">
+        <div class="btn-group" role="group">
+            <button class="btn btn-warning active" type="button">全部商品</button>
+            <button class="btn btn-warning" type="button">例行性商品</button>
+            <button class="btn btn-warning" type="button">我的最愛</button>
+        </div>
 
+        <script>
+
+        function getParameterByName(name, url) {
+            if (!url) {
+                url = window.location.href;
+            }
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        $(function () {
+            $.ajax({
+                url: 'http://220.130.10.50:6868/api/webapi/getProductSuperType',
+                type: 'GET',
+                dataType: 'JSON',
+                //data: obj,
+                success: function (result) {
+                    var $ul = $('#tv_menu');
+                    try {
+                        $.each(result, function (i, pt) {
+                            $ul.append('<li><a href="#"><span class="btn-expand"></span><span>' + pt.ProductTypeName + '</span></a><ul class="treeview-menu" id="ul_' + pt.ProductTypeID + '"></ul></li>');
+                        });
+                        console.log(result);
+                    }
+                    catch (err) {
+                        alert('Get product type occur error:' + err);
+                    }
+                },
+                complete: function () {
+
+                }
+            });
+        });
+
+
+        $(function () {
+            $.ajax({
+                url: 'http://220.130.10.50:6868/api/webapi/getProductType',
+                type: 'GET',
+                dataType: 'JSON',
+                //data: obj,
+                success: function (result) {
+
+                    try {
+                        $.each(result, function (i, pt) {
+                            var $ul = $('#ul_' + pt.SuperTypeID);
+                            console.log($ul);
+                            $ul.append('<li><a href="/Mart/Index?productName=*&productTypeName=' + pt.ProductTypeName + '&showCount=5">' + pt.ProductTypeName + '</a></li>');
+                        });
+                        console.log(result);
+                    }
+                    catch (err) {
+                        alert('Get product type occur error:' + err);
+                    }
+                },
+                complete: function () {
+
+                }
+            });
+        });
+
+
+
+        //if ($("#txtProductName").val() != '') {
+        //    loadData(1, '', $("#txtProductName").val());
+        //}
+        //else {
+        //    loadData(1, 'ProductCustomizeID', '%');
+        //}
+        
+            loadData(1, 'ProductCustomizeID', '*');
+
+
+
+            $(function () {
+                $("#btnSearch").click(function () {
+                    //alert('click');
+                    if ($("#txtProductName").val() != '') {
+
+                        window.location.search = jQuery.query.set("productTypeName", '全部').set("productName", $("#txtProductName").val());                        
+                    }
+                });
+            });
+       
+
+        function loadData(page,sort,productName)
+        {
+
+
+            console.log('page:' + page + ',sort:' + sort + ',pname=' + productName);
+            console.log('url:http://220.130.10.50:6868/api/webapi/getProductPaging?productName=' + getParameterByName('productName') +'&productTypeName=' + getParameterByName('productTypeName') + '&currentPage=' + page + '&showCount=' + getParameterByName('showCount') +'&sortColumn='+sort);
+            $(function () {
+                $.ajax({
+                    url: 'http://220.130.10.50:6868/api/webapi/getProductPaging?productName=' + getParameterByName('productName') +'&productTypeName=' + getParameterByName('productTypeName') + '&currentPage=' + page + '&showCount=' + getParameterByName('showCount') +'&sortColumn='+sort,
+                    type: 'GET',
+                    dataType: 'JSON',                    
+                    success: function (result) {
+
+                        $(function () {
+                            var obj = $('#pagination').twbsPagination({
+                                totalPages: result.Data.TotalPage,
+                                visiblePages: 5,
+                                initiateStartPageClick: false,
+                                prevText: '<span aria-hidden="true">&laquo;</span>',
+                                nextText: '<span aria-hidden="true">&raquo;</span>',
+                                onPageClick: function (event, page) {
+                                    console.log('onclick');
+                                    loadData(page, sort);
+                                }
+                            });
+                            console.info(obj.data());
+                        });
+
+                        try {
+
+                            var $divProduct = $('#divProduct');
+
+                            $divProduct.empty();
+
+
+                            $.each(result.Data.ListOfProduct, function (i, pt) {
+                                $divProduct.append(
+                                    '<tr class="tr">' +
+                                    '<td class="td check-td">' +
+                                    '<input type="checkbox">' +
+                                    '</td>' +
+                                    '<td class="td img-td">' +
+                                    '<div class="img-wrap"><img src="' + pt.ImageUrl + '" alt="' + pt.ProductName + '" title="' + pt.ProductName + '"></div>' +
+                                    '</td>' +
+                                    '<td class="td" data-title="代碼">' + pt.ProductCustomizeID + '</td>' +
+                                    '<td class="td" data-title="名稱">' + pt.ProductName + '</td>' +
+                                    '<td class="td qt-td" data-title="數量">' +
+                                    '<div class="qt-wrap">' +
+                                    '<input type="number" name="" placeholder="0">' +
+                                    '<div class="btn-group">' +
+                                    '<button class="btn" type="button"><i class="fa fa-minus-circle"></i></button>' +
+                                    '<button class="btn" type="button"><i class="fa fa-plus-circle"></i></button>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</td>' +
+                                    '<td class="td" data-title="單位">' + pt.ProductUnitName + '</td>' +
+                                    '<td class="td behave-td">' +
+                                    '<button class="btn btn-default" type="button">加入購物車</button>' +
+                                    '<label>' +
+                                    '<input type="checkbox"><span class="box-checkbox"><i class="fa fa-archive"></i></span>' +
+                                    '</label>' +
+                                    '<label>' +
+                                    '<input type="checkbox"><span class="box-checkbox"><i class="fa fa-star"></i></span>' +
+                                    '</label>' +
+                                    '</td>' +
+                                    '</tr>'
+                                );
+
+                                console.log('append row ok');
+
+                            });
+                            console.log('res='+result);
+
+
+                        }
+                        catch (err) {
+                            alert('Get product type occur error:' + err);
+                        }
+                    },
+                    complete: function () {
+
+                    }
+                });
+            });
+        }
+
+        
+
+       
+
+
+    </script>
+
+
+
+        <div class="content-wrap">
+            <div class="aside left-side">                             
+            <div class="sidebar">                    
+                <ul id="tv_menu" class="sidebar-menu treeview-menu">
+                    <li class="selected"><a href="#"><span>全部</span></a></li>
+                </ul>
+
+            </div>
+            </div>
+            
+            <div class="main-content">
+                <div class="box-wrap">
+                    <div class="box-header">
+                        <div class="box-btn">
+                            <div class="radio-group clear">
+                                <label class="left">
+                                    <input type="radio" name="th" value="0" checked><span class="box-radio icon-th-list"><i class="fa fa-th-list"></i></span>
+                                </label>
+                                <label class="left">
+                                    <input type="radio" name="th" value="1"><span class="box-radio icon-th-large"><i class="fa fa-th-large"></i></span>
+                                </label>
+                            </div>
+                            <button class="btn btn-default btn-cart-plus" type="button">加入購物車 <span class="icon-cart-plus"><i class="fa fa-cart-plus"></i></span></button>
+                        </div>
+                        <div class="box-tools">
+                            <div class="input-group input-group-sm input-search-wrap">
+                                <input id="txtProductName" class="form-control pull-right input-search" type="text" name="" placeholder="搜尋商品">
+                                <div class="input-group-btn">
+                                    <button id="btnSearch" class="btn btn-default btn-search" type="button"> <i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-bordered">
+                            <thead class="thead">
+                                <tr class="tr">
+                                    <th class="th">
+                                        <input type="checkbox">
+                                    </th>
+                                    <th class="th img-td sortable">縮圖</th>
+                                    <th class="th sortable sort-asc">代碼</th>
+                                    <th class="th sortable sort-desc">名稱</th>
+                                    <th class="th sortable">數量</th>
+                                    <th class="th sortable">單位</th>
+                                    <th class="th"> </th>
+                                </tr>
+                            </thead>
+                            <tbody id="divProduct" class="tbody clear">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <nav class="pagination-wrap" aria-label="Page navigation">
+                    <ul class="pagination" id="pagination">
+                        @*<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                        <li class="active"><span href="#">1</span></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>*@
+                    </ul>
+                </nav>
+
+                @*<nav aria-label="Page navigation">
+                    <ul class="pagination" id="pagination"></ul>
+                </nav>*@
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

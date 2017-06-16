@@ -80,13 +80,13 @@
       <publishTime>02/22/2013 08:43:40</publishTime>
     </File>
     <File Include="bin/ApiTradeMarket.dll">
-      <publishTime>05/13/2017 15:03:51</publishTime>
+      <publishTime>06/16/2017 13:23:37</publishTime>
     </File>
     <File Include="bin/ApplicationInsights.config">
       <publishTime>03/16/2017 11:03:17</publishTime>
     </File>
     <File Include="bin/DBLibrary.dll">
-      <publishTime>04/18/2017 12:30:42</publishTime>
+      <publishTime>05/16/2017 20:37:07</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>01/04/2017 00:44:16</publishTime>
@@ -95,10 +95,10 @@
       <publishTime>01/04/2017 00:44:16</publishTime>
     </File>
     <File Include="bin/LibraryTradeMarket.dll">
-      <publishTime>05/13/2017 15:03:35</publishTime>
+      <publishTime>06/16/2017 13:23:30</publishTime>
     </File>
     <File Include="bin/LibraryTradeMarket.dll.config">
-      <publishTime>04/20/2017 18:24:08</publishTime>
+      <publishTime>06/10/2017 16:03:05</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>11/30/2016 16:07:42</publishTime>
@@ -350,7 +350,7 @@
       <publishTime>03/16/2017 11:02:32</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/13/2017 15:03:54</publishTime>
+      <publishTime>06/12/2017 18:55:28</publishTime>
     </File>
   </ItemGroup>
 </Project>

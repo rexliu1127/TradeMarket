@@ -25,17 +25,18 @@ namespace LibraryTradeMarket
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<cart_order> cart_order { get; set; }
-        public virtual DbSet<cart_order_detail> cart_order_detail { get; set; }
         public virtual DbSet<department> department { get; set; }
-        public virtual DbSet<member> member { get; set; }
         public virtual DbSet<member_type> member_type { get; set; }
-        public virtual DbSet<product_on_sales> product_on_sales { get; set; }
-        public virtual DbSet<product_type> product_type { get; set; }
         public virtual DbSet<supply> supply { get; set; }
         public virtual DbSet<error_log> error_log { get; set; }
         public virtual DbSet<product_unit> product_unit { get; set; }
         public virtual DbSet<temp_cart> temp_cart { get; set; }
         public virtual DbSet<product> product { get; set; }
+        public virtual DbSet<cart_order> cart_order { get; set; }
+        public virtual DbSet<product_on_sales> product_on_sales { get; set; }
+        public virtual DbSet<member> member { get; set; }
+        public virtual DbSet<cart_order_detail> cart_order_detail { get; set; }
+        public virtual DbSet<my_favorite> my_favorite { get; set; }
+        public virtual DbSet<product_type> product_type { get; set; }
     }
 }

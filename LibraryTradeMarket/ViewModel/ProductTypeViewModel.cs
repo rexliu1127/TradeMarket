@@ -8,12 +8,17 @@ namespace LibraryTradeMarket
 {
     public class ProductTypeViewModel
     {
+        public string SuperTypeID { get; set; }
+        public string SuperTypeName { get; set; }
+
         public string ProductTypeID { get; set; }        
         public string ProductTypeName { get; set; }
 
         public ProductTypeViewModel()
         {
-            ProductTypeID = "";
+            SuperTypeID = "";
+            SuperTypeName = "";
+            ProductTypeID = "";           
             ProductTypeName = "";            
         }
     }

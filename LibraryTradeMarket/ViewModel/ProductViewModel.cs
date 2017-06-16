@@ -15,6 +15,11 @@ namespace LibraryTradeMarket
         public string ProductTypeID { get; set; }
         public string ProductTypeName { get; set; }
 
+        public string ImageUrl { get; set; }
+        public string OnSales { get; set; }
+        public string UpdateDate { get; set; }
+
+
         public ProductViewModel()
         {
             DepartmentID = 1;
@@ -23,6 +28,9 @@ namespace LibraryTradeMarket
             ProductUnitName = "";
             ProductTypeID = "";
             ProductTypeName = "";
+            ImageUrl = "";
+            OnSales = "0";
+            UpdateDate = DateTime.Now.ToString(Business.DATETIME_FORMAT_24H);
         }
     }
 }

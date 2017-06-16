@@ -1,36 +1,82 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    Layout = null;
 }
 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="MobileOptimized" content="320">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=10">
+    <title>奶油市集</title>
+    <link rel="icon" type="image/png" href="./images/favicon.ico">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendors/AdminLTE-2.3.11/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="vendors/AdminLTE-2.3.11/dist/css/skins/skin-red-light.min.css">
+    <link rel="stylesheet" href="css/app.min.css?rev=99b7f219474e2fae878c59d99c0ae5e6">
+    <style>
+        .with-background-color {
+            background-color: #ddd;
+        }
+    </style><!--[if (lte IE 9)]><!-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script><!--<![endif]-->
+</head>
+<body class="with-background-color skin-red-light">
+    <main id="container">
+        <div class="login">
+            <div class="login-wrap">
+                <div class="input-wrap">
+                    <div class="img-wrap"><img src="./images/login-demo.jpg" alt="奶油市集" title="奶油市集"></div>
+                    <div class="login-box-body">
 
-       <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-md-4 col-md-offset-4">
-                <div class="account-wall">
-                    <div id="my-tab-content" class="tab-content">
-                        <div class="tab-pane active" id="login">
-                            <img class="profile-img" src="~/Image/loginlogo.png"
-                                 alt="">
                         @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "form-signin" }))
-                        {
-                            @Html.AntiForgeryToken()
 
-                            <form class="form-signin" action="Login" method="post">
-                                <input name="account" type="text" class="form-control" placeholder="帳號" required autofocus>
-                                <input name="password" type="password" class="form-control" placeholder="密碼" required>
-                                <input type="submit" class="btn btn-lg btn-default btn-block" value="登入" />
-                            </form>
-                        }                           
-                        </div>
-                        
+
+
+                        {
+                        @Html.AntiForgeryToken()
+                        <form action="Home/Login" method="post">
+                            <div class="form-group has-feedback">
+                                <input class="form-control" type="text"  name="account" placeholder="帳號"><i class="fa fa-user form-control-feedback"></i>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <input class="form-control" type="password"  name="password" placeholder="密碼"><i class="fa fa-lock form-control-feedback"></i>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <div class="input-row">
+                                        <label>
+                                            <input type="checkbox"><span class="box-checkbox"></span>記住我的帳號
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <button class="btn btn-primary btn-block btn-flat" type="submit">登入</button>
+                                </div>
+                                <div class="col-xs-8"><a class="forget-password" href="#">忘記帳號或密碼?</a></div>
+                            </div>
+                        </form>
+
+                        }
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-
-
-
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+    <script src="vendors/AdminLTE-2.3.11/dist/js/app.js"></script>
+    <script src="js/app.js?rev=427d664cd8836cc864419a27e58e7bfa"></script>
+</body>
+</html>

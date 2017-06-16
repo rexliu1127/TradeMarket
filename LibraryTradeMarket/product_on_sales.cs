@@ -15,8 +15,9 @@ namespace LibraryTradeMarket
     public partial class product_on_sales
     {
         public int id { get; set; }
+        public int department_id { get; set; }
         public string product_customize_id { get; set; }
         public System.DateTime update_date { get; set; }
-        public Nullable<int> update_user_id { get; set; }
+        public Nullable<int> update_member_id { get; set; }
     }
 }

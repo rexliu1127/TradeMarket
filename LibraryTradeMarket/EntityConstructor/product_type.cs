@@ -10,6 +10,7 @@ namespace LibraryTradeMarket
     {
         public product_type()
         {
+            super_type_id = 1;
             product_type_name = "";
         }
     }
