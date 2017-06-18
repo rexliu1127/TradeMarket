@@ -188,6 +188,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\ajax-loader.gif" />
     <Content Include="images\article-2.png" />
     <Content Include="images\login-demo.jpg" />
     <Content Include="images\logo.jpeg" />
@@ -199,10 +200,14 @@
     <Content Include="Image\loginlogo.png" />
     <Content Include="Image\wat.jpg" />
     <Content Include="js\app.js" />
+    <Content Include="js\common.js" />
     <Content Include="js\jquery.easytree.js" />
     <Content Include="js\jquery.easytree.min.js" />
     <Content Include="js\jquery.query-object.js" />
     <Content Include="js\jquery.twbsPagination.js" />
+    <Content Include="js\page\index.js" />
+    <Content Include="js\util\AjaxUtil.js" />
+    <Content Include="js\util\CommonUtil.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -1372,7 +1377,7 @@
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:6019/</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost:6019/</IISAppRootUrl>
+          <IISAppRootUrl>http://localhost:6019</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
